@@ -5,21 +5,25 @@
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>StringIndexer | 嘿嘿尔尔随便写写</title>
+  <link rel="dns-prefetch" href="http://ratlsun.github.io">
+  <title>Spark MLib 每日一算法 —— StringIndexer | Spark MLib wctkn</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="StringIndexer">
-<meta property="og:url" content="http://yoursite.com/2018/02/03/StringIndexer/index.html">
-<meta property="og:site_name" content="嘿嘿尔尔随便写写">
-<meta property="og:updated_time" content="2018-02-03T11:50:35.330Z">
+  <meta name="description" content="StringIndexerStringIndexer是一个Estimator，用来将某个文本属性的值转化成数字编码，以便后续其他适用于数字编码的算法使用。编码规则是对该文本属性每个出现的属性值label给出从0～label数量-1的数字，出现频率越高的label，给出的编码数字就越小。由此看出StringIndexer是需要根据已有训练集来进行fit的。 参数 inputCol: 需要给出编码的文">
+<meta name="keywords" content="Spark,机器学习,算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spark MLib 每日一算法 —— StringIndexer">
+<meta property="og:url" content="http://ratlsun.github.io/2018/02/04/StringIndexer/index.html">
+<meta property="og:site_name" content="Spark MLib wctkn">
+<meta property="og:description" content="StringIndexerStringIndexer是一个Estimator，用来将某个文本属性的值转化成数字编码，以便后续其他适用于数字编码的算法使用。编码规则是对该文本属性每个出现的属性值label给出从0～label数量-1的数字，出现频率越高的label，给出的编码数字就越小。由此看出StringIndexer是需要根据已有训练集来进行fit的。 参数 inputCol: 需要给出编码的文">
+<meta property="og:updated_time" content="2018-02-04T07:43:19.796Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="StringIndexer">
+<meta name="twitter:title" content="Spark MLib 每日一算法 —— StringIndexer">
+<meta name="twitter:description" content="StringIndexerStringIndexer是一个Estimator，用来将某个文本属性的值转化成数字编码，以便后续其他适用于数字编码的算法使用。编码规则是对该文本属性每个出现的属性值label给出从0～label数量-1的数字，出现频率越高的label，给出的编码数字就越小。由此看出StringIndexer是需要根据已有训练集来进行fit的。 参数 inputCol: 需要给出编码的文">
   
-    <link rel="alternative" href="/atom.xml" title="嘿嘿尔尔随便写写" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="Spark MLib wctkn" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/fj.jpg">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
   <style type="text/css">
@@ -46,7 +50,7 @@
 			<img src="https://cmss.agilean.cn/user-4bcd9cc1-2d87-43c1-8912-88d7592b2e7b.jpg" class="js-avatar">
 		</a>
 		<hgroup>
-		  <h1 class="header-author"><a href="/">嘿嘿尔尔</a></h1>
+		  <h1 class="header-author"><a href="/">看日出的老鼠</a></h1>
 		</hgroup>
 		
 
@@ -90,7 +94,7 @@
 				<img src="https://cmss.agilean.cn/user-4bcd9cc1-2d87-43c1-8912-88d7592b2e7b.jpg" class="js-avatar">
 			</div>
 			<hgroup>
-			  <h1 class="header-author js-header-author">嘿嘿尔尔</h1>
+			  <h1 class="header-author js-header-author">看日出的老鼠</h1>
 			</hgroup>
 			
 			
@@ -131,20 +135,26 @@
         
   
     <h1 class="article-title" itemprop="name">
-      StringIndexer
+      Spark MLib 每日一算法 —— StringIndexer
     </h1>
   
 
         
-        <a href="/2018/02/03/StringIndexer/" class="archive-article-date">
-  	<time datetime="2018-02-03T11:50:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-03</time>
+        <a href="/2018/02/04/StringIndexer/" class="archive-article-date">
+  	<time datetime="2018-02-04T11:50:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-04</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h3 id="StringIndexer"><a href="#StringIndexer" class="headerlink" title="StringIndexer"></a>StringIndexer</h3><p>StringIndexer是一个Estimator，用来将某个文本属性的值转化成数字编码，以便后续其他适用于数字编码的算法使用。编码规则是对该文本属性每个出现的属性值label给出从<span style="color:blue">0～label数量-1</span>的数字，出现频率越高的label，给出的编码数字就越小。由此看出StringIndexer是需要根据已有训练集来进行fit的。</p>
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><ul>
+<li><strong>inputCol:</strong> 需要给出编码的文本属性名称</li>
+<li><strong>outputCol:</strong> 编码后的属性名称 (默认值: strIdx_######_output)</li>
+<li><strong>handleInvalid:</strong> 表示在transform期间如何处理在fit训练集时没有碰到过的属性值label或者Null值。<br>可选项1. <span style="color:blue">skip</span>-放弃有未知label的row；<br>可选项2. <span style="color:blue">error</span>-抛出异常<code>org.apache.spark.SparkException: Unseen label: xx</code>；<br>可选项3. <span style="color:blue">keep</span>处理成以label数量为数字的编码. (默认值: <span style="color:blue">error</span>)</li>
+</ul>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3>  <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> training = spark.createDataFrame(</span><br><span class="line">  <span class="type">Seq</span>((<span class="number">0</span>, <span class="string">"a"</span>), (<span class="number">1</span>, <span class="string">"b"</span>), (<span class="number">2</span>, <span class="string">"c"</span>), (<span class="number">3</span>, <span class="string">"a"</span>), (<span class="number">4</span>, <span class="string">"a"</span>), (<span class="number">5</span>, <span class="string">"c"</span>))</span><br><span class="line">).toDF(<span class="string">"id"</span>, <span class="string">"category"</span>)</span><br><span class="line">training.show()</span><br><span class="line"><span class="comment">//    +---+--------+</span></span><br><span class="line"><span class="comment">//    | id|category|</span></span><br><span class="line"><span class="comment">//    +---+--------+</span></span><br><span class="line"><span class="comment">//    |  0|       a|</span></span><br><span class="line"><span class="comment">//    |  1|       b|</span></span><br><span class="line"><span class="comment">//    |  2|       c|</span></span><br><span class="line"><span class="comment">//    |  3|       a|</span></span><br><span class="line"><span class="comment">//    |  4|       a|</span></span><br><span class="line"><span class="comment">//    |  5|       c|</span></span><br><span class="line"><span class="comment">//    +---+--------+</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> indexer = <span class="keyword">new</span> <span class="type">StringIndexer</span>()</span><br><span class="line">  .setInputCol(<span class="string">"category"</span>)</span><br><span class="line">  .setOutputCol(<span class="string">"categoryIndex"</span>)</span><br><span class="line">  </span><br><span class="line"><span class="keyword">val</span> model = indexer.fit(training)</span><br><span class="line">model.transform(training).show()</span><br><span class="line"><span class="comment">//    +---+--------+-------------+</span></span><br><span class="line"><span class="comment">//    | id|category|categoryIndex|</span></span><br><span class="line"><span class="comment">//    +---+--------+-------------+</span></span><br><span class="line"><span class="comment">//    |  0|       a|          0.0|</span></span><br><span class="line"><span class="comment">//    |  1|       b|          2.0|</span></span><br><span class="line"><span class="comment">//    |  2|       c|          1.0|</span></span><br><span class="line"><span class="comment">//    |  3|       a|          0.0|</span></span><br><span class="line"><span class="comment">//    |  4|       a|          0.0|</span></span><br><span class="line"><span class="comment">//    |  5|       c|          1.0|</span></span><br><span class="line"><span class="comment">//    +---+--------+-------------+</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> test = spark.createDataFrame(</span><br><span class="line">  <span class="type">Seq</span>((<span class="number">0</span>, <span class="string">"c"</span>), (<span class="number">1</span>, <span class="string">"d"</span>), (<span class="number">2</span>, <span class="string">"e"</span>), (<span class="number">3</span>, <span class="string">"c"</span>), (<span class="number">4</span>, <span class="string">"b"</span>))</span><br><span class="line">).toDF(<span class="string">"id"</span>, <span class="string">"category"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  model.transform(test).show()</span><br><span class="line">&#125; <span class="keyword">catch</span> &#123;  <span class="comment">//error from label d &amp; e.</span></span><br><span class="line">  <span class="keyword">case</span> ex: <span class="type">SparkException</span> =&gt; println(ex)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">model.setHandleInvalid(<span class="string">"keep"</span>)</span><br><span class="line">model.transform(test).show()</span><br><span class="line"><span class="comment">//    +---+--------+-------------+</span></span><br><span class="line"><span class="comment">//    | id|category|categoryIndex|</span></span><br><span class="line"><span class="comment">//    +---+--------+-------------+</span></span><br><span class="line"><span class="comment">//    |  0|       c|          1.0|</span></span><br><span class="line"><span class="comment">//    |  1|       d|          3.0|</span></span><br><span class="line"><span class="comment">//    |  2|       e|          3.0|</span></span><br><span class="line"><span class="comment">//    |  3|       c|          1.0|</span></span><br><span class="line"><span class="comment">//    |  4|       b|          2.0|</span></span><br><span class="line"><span class="comment">//    +---+--------+-------------+</span></span><br></pre></td></tr></table></figure>
       
 
       
@@ -152,6 +162,25 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spark</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -202,7 +231,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/02/03/StringIndexer/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://ratlsun.github.io/2018/02/04/StringIndexer/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -214,16 +243,6 @@
 </article>
 
   
-<nav id="article-nav">
-  
-  
-    <a href="/2018/02/03/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Hello World</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -261,7 +280,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 嘿嘿尔尔
+    		&copy; 2018 看日出的老鼠
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -355,6 +374,26 @@ MathJax.Hub.Queue(function() {
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Spark Machine</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Spark 机器学习 算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Spark</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">机器学习</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>
@@ -404,7 +443,7 @@ MathJax.Hub.Queue(function() {
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">很惭愧&lt;br&gt;&lt;br&gt;只做了一点微小的工作&lt;br&gt;谢谢大家</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">Hole sun said,&lt;br&gt;Warm care then know new</div>
   	  	
     	</section>
     
