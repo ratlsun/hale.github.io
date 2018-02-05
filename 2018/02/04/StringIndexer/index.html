@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://ratlsun.github.io">
   <title>Spark MLib 每日一算法 —— StringIndexer | Spark MLib wctkn</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="StringIndexerStringIndexer是一个Estimator，用来将某个文本属性的值转化成数字编码，以便后续其他适用于数字编码的算法使用。编码规则是对该文本属性每个出现的属性值label给出从0～label数量-1的数字，出现频率越高的label，给出的编码数字就越小。由此看出StringIndexer是需要根据已有训练集来进行fit的。 参数 inputCol: 需要给出编码的文">
+  <meta name="description" content="StringIndexerStringIndexer是一个Estimator，用来将某个文本属性的值转化成数字编码index，以便后续其他适用于数字编码的算法使用。编码规则是对该文本属性每个出现的属性值label给出从0～label数量-1的数字，出现频率越高的label，给出的编码数字就越小。由此看出StringIndexer是需要根据已有训练集来进行fit的。 参数 inputCol: 需要给">
 <meta name="keywords" content="Spark,机器学习,算法,StringIndexer">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spark MLib 每日一算法 —— StringIndexer">
 <meta property="og:url" content="http://ratlsun.github.io/2018/02/04/StringIndexer/index.html">
 <meta property="og:site_name" content="Spark MLib wctkn">
-<meta property="og:description" content="StringIndexerStringIndexer是一个Estimator，用来将某个文本属性的值转化成数字编码，以便后续其他适用于数字编码的算法使用。编码规则是对该文本属性每个出现的属性值label给出从0～label数量-1的数字，出现频率越高的label，给出的编码数字就越小。由此看出StringIndexer是需要根据已有训练集来进行fit的。 参数 inputCol: 需要给出编码的文">
-<meta property="og:updated_time" content="2018-02-04T08:35:41.463Z">
+<meta property="og:description" content="StringIndexerStringIndexer是一个Estimator，用来将某个文本属性的值转化成数字编码index，以便后续其他适用于数字编码的算法使用。编码规则是对该文本属性每个出现的属性值label给出从0～label数量-1的数字，出现频率越高的label，给出的编码数字就越小。由此看出StringIndexer是需要根据已有训练集来进行fit的。 参数 inputCol: 需要给">
+<meta property="og:updated_time" content="2018-02-05T11:52:47.594Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark MLib 每日一算法 —— StringIndexer">
-<meta name="twitter:description" content="StringIndexerStringIndexer是一个Estimator，用来将某个文本属性的值转化成数字编码，以便后续其他适用于数字编码的算法使用。编码规则是对该文本属性每个出现的属性值label给出从0～label数量-1的数字，出现频率越高的label，给出的编码数字就越小。由此看出StringIndexer是需要根据已有训练集来进行fit的。 参数 inputCol: 需要给出编码的文">
+<meta name="twitter:description" content="StringIndexerStringIndexer是一个Estimator，用来将某个文本属性的值转化成数字编码index，以便后续其他适用于数字编码的算法使用。编码规则是对该文本属性每个出现的属性值label给出从0～label数量-1的数字，出现频率越高的label，给出的编码数字就越小。由此看出StringIndexer是需要根据已有训练集来进行fit的。 参数 inputCol: 需要给">
   
     <link rel="alternative" href="/atom.xml" title="Spark MLib wctkn" type="application/atom+xml">
   
@@ -148,7 +148,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="StringIndexer"><a href="#StringIndexer" class="headerlink" title="StringIndexer"></a>StringIndexer</h3><p>StringIndexer是一个Estimator，用来将某个文本属性的值转化成数字编码，以便后续其他适用于数字编码的算法使用。编码规则是对该文本属性每个出现的属性值label给出从<span style="color:blue">0～label数量-1</span>的数字，出现频率越高的label，给出的编码数字就越小。由此看出StringIndexer是需要根据已有训练集来进行fit的。</p>
+        <h3 id="StringIndexer"><a href="#StringIndexer" class="headerlink" title="StringIndexer"></a>StringIndexer</h3><p>StringIndexer是一个Estimator，用来将某个文本属性的值转化成数字编码index，以便后续其他适用于数字编码的算法使用。编码规则是对该文本属性每个出现的属性值label给出从<span style="color:blue">0～label数量-1</span>的数字，出现频率越高的label，给出的编码数字就越小。由此看出StringIndexer是需要根据已有训练集来进行fit的。</p>
 <h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><ul>
 <li><strong>inputCol:</strong> 需要给出编码的文本属性名称</li>
 <li><strong>outputCol:</strong> 编码后的属性名称 (默认值: strIdx_######_output)</li>
@@ -247,6 +247,20 @@
 </article>
 
   
+<nav id="article-nav">
+  
+    <a href="/2018/02/05/VectorAssembler/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Spark MLib 每日一算法 —— VectorAssembler
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -380,14 +394,6 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Spark Machine</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Spark 机器学习 算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Spark</a>
               </li>
              
@@ -401,6 +407,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">StringIndexer</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">VectorAssembler</a>
               </li>
             
             <div class="clearfix"></div>

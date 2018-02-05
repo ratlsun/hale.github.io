@@ -125,6 +125,96 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-VectorAssembler" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/02/05/VectorAssembler/">Spark MLib 每日一算法 —— VectorAssembler</a>
+    </h1>
+  
+
+        
+        <a href="/2018/02/05/VectorAssembler/" class="archive-article-date">
+  	<time datetime="2018-02-05T11:45:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="VectorAssembler"><a href="#VectorAssembler" class="headerlink" title="VectorAssembler"></a>VectorAssembler</h3><p>VectorAssembler是一个Transformer，用来将数据集中多个属性按次序组合成一个类型为向量vector的属性，以便后续其他适用于向量数据的算法(逻辑回归，决策树，主成分等等)使用。被组合的属性类型可以是数字(numeric)，布尔(boolean)以及向量(vector)。</p>
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><ul>
+<li><strong>inputCols:</strong> 需要组合的属性名称数组</li>
+<li><strong>outputCol:</strong> 组合后的向量属性名称 (默认值: vecAssembler_######_output)</li>
+</ul>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">val dataset = spark.createDataFrame(</span><br><span class="line">  Seq((0, 18, 1.0, Vectors.dense(0.0, 10.0, 0.5), 1.0))</span><br><span class="line">).toDF(&quot;id&quot;, &quot;hour&quot;, &quot;mobile&quot;, &quot;userFeatures&quot;, &quot;clicked&quot;)</span><br><span class="line">dataset.show()</span><br><span class="line">//    +---+----+------+--------------+-------+</span><br><span class="line">//    | id|hour|mobile|  userFeatures|clicked|</span><br><span class="line">//    +---+----+------+--------------+-------+</span><br><span class="line">//    |  0|  18|   1.0|[0.0,10.0,0.5]|    1.0|</span><br><span class="line">//    +---+----+------+--------------+-------+</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">val assembler = new VectorAssembler()</span><br><span class="line">  .setInputCols(Array(&quot;hour&quot;, &quot;mobile&quot;, &quot;userFeatures&quot;))</span><br><span class="line">  .setOutputCol(&quot;features&quot;)</span><br><span class="line"></span><br><span class="line">val output = assembler.transform(dataset)</span><br><span class="line">output.show(false)</span><br><span class="line">//    +---+----+------+--------------+-------+-----------------------+</span><br><span class="line">//    |id |hour|mobile|userFeatures  |clicked|features               |</span><br><span class="line">//    +---+----+------+--------------+-------+-----------------------+</span><br><span class="line">//    |0  |18  |1.0   |[0.0,10.0,0.5]|1.0    |[18.0,1.0,0.0,10.0,0.5]|</span><br><span class="line">//    +---+----+------+--------------+-------+-----------------------+</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spark</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">VectorAssembler</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/02/05/VectorAssembler/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-StringIndexer" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -145,7 +235,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="StringIndexer"><a href="#StringIndexer" class="headerlink" title="StringIndexer"></a>StringIndexer</h3><p>StringIndexer是一个Estimator，用来将某个文本属性的值转化成数字编码，以便后续其他适用于数字编码的算法使用。编码规则是对该文本属性每个出现的属性值label给出从<span style="color:blue">0～label数量-1</span>的数字，出现频率越高的label，给出的编码数字就越小。由此看出StringIndexer是需要根据已有训练集来进行fit的。</p>
+        <h3 id="StringIndexer"><a href="#StringIndexer" class="headerlink" title="StringIndexer"></a>StringIndexer</h3><p>StringIndexer是一个Estimator，用来将某个文本属性的值转化成数字编码index，以便后续其他适用于数字编码的算法使用。编码规则是对该文本属性每个出现的属性值label给出从<span style="color:blue">0～label数量-1</span>的数字，出现频率越高的label，给出的编码数字就越小。由此看出StringIndexer是需要根据已有训练集来进行fit的。</p>
 <h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><ul>
 <li><strong>inputCol:</strong> 需要给出编码的文本属性名称</li>
 <li><strong>outputCol:</strong> 编码后的属性名称 (默认值: strIdx_######_output)</li>
@@ -322,14 +412,6 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Spark Machine</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Spark 机器学习 算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Spark</a>
               </li>
              
@@ -343,6 +425,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">StringIndexer</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">VectorAssembler</a>
               </li>
             
             <div class="clearfix"></div>
