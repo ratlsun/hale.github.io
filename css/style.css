@@ -1126,6 +1126,8 @@ a.article-title:hover {
   border: none;
   margin: 0;
   padding: 0;
+  white-space: pre;
+  overflow-x: scroll;
 }
 .article-entry .highlight table {
   margin: 0;
