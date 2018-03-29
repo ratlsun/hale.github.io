@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://ratlsun.github.io">
-  <title>Archives | Spark MLib wctkn</title>
+  <title>Spark MLib 每月一算法 —— QuantileDiscretizer | Spark MLib wctkn</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Spark MLib wctkn">
-<meta property="og:url" content="http://ratlsun.github.io/archives/index.html">
+  <meta name="description" content="QuantileDiscretizerQuantileDiscretizer是一个Estimator，用来将某个连续值类型的属性转化成离散的数字分类编码属性，以便后续其他适用于数字编码的算法使用。离散化的过程也被称作分箱(Bucketizer)。从算法名称可以看出QuantileDiscretizer是通过分位数来确定每一个箱体(bucket)的范围，比如希望将数据分成2组，那么这2组的范围分别会">
+<meta name="keywords" content="Spark,机器学习,算法,QuantileDiscretizer,离散化,分箱">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spark MLib 每月一算法 —— QuantileDiscretizer">
+<meta property="og:url" content="http://ratlsun.github.io/2018/03/29/QuantileDiscretizer/index.html">
 <meta property="og:site_name" content="Spark MLib wctkn">
+<meta property="og:description" content="QuantileDiscretizerQuantileDiscretizer是一个Estimator，用来将某个连续值类型的属性转化成离散的数字分类编码属性，以便后续其他适用于数字编码的算法使用。离散化的过程也被称作分箱(Bucketizer)。从算法名称可以看出QuantileDiscretizer是通过分位数来确定每一个箱体(bucket)的范围，比如希望将数据分成2组，那么这2组的范围分别会">
+<meta property="og:updated_time" content="2018-03-29T16:15:45.746Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spark MLib wctkn">
+<meta name="twitter:title" content="Spark MLib 每月一算法 —— QuantileDiscretizer">
+<meta name="twitter:description" content="QuantileDiscretizerQuantileDiscretizer是一个Estimator，用来将某个连续值类型的属性转化成离散的数字分类编码属性，以便后续其他适用于数字编码的算法使用。离散化的过程也被称作分箱(Bucketizer)。从算法名称可以看出QuantileDiscretizer是通过分位数来确定每一个箱体(bucket)的范围，比如希望将数据分成2组，那么这2组的范围分别会">
   
     <link rel="alternative" href="/atom.xml" title="Spark MLib wctkn" type="application/atom+xml">
   
@@ -123,36 +128,46 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-QuantileDiscretizer" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/03/29/QuantileDiscretizer/" class="archive-article-date">
-  	<time datetime="2018-03-29T08:23:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-29</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/03/29/QuantileDiscretizer/">Spark MLib 每月一算法 —— QuantileDiscretizer</a>
+    <h1 class="article-title" itemprop="name">
+      Spark MLib 每月一算法 —— QuantileDiscretizer
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2018/03/29/QuantileDiscretizer/" class="archive-article-date">
+  	<time datetime="2018-03-29T08:23:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-29</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="QuantileDiscretizer"><a href="#QuantileDiscretizer" class="headerlink" title="QuantileDiscretizer"></a>QuantileDiscretizer</h3><p>QuantileDiscretizer是一个Estimator，用来将某个连续值类型的属性转化成离散的数字分类编码属性，以便后续其他适用于数字编码的算法使用。离散化的过程也被称作分箱(Bucketizer)。<br>从算法名称可以看出QuantileDiscretizer是通过分位数来确定每一个箱体(bucket)的范围，比如希望将数据分成2组，那么这2组的范围分别会是<span style="color:blue">[-Infinity,中位数]</span>和<span style="color:blue">[中位数,+Infinity]</span>。但由于实际中严格获取分位点比较耗时，所以Spark采取近似算法，用户预先给出可以接受的近似误差。<br>QuantileDiscretizer需要根据已有训练集数据来进行fit，得到数据集对应的箱体编码model，后续有新的属性数据会被transform到对应的箱体中，针对Null值数据可以设置<strong>handleInvalid</strong>参数来处理。</p>
+<a id="more"></a>
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><ul>
+<li><strong>inputCol:</strong> 需要进行离散化的属性名称</li>
+<li><strong>inputCols:</strong> 需要进行离散化的一组属性名称，一次处理多个属性的便捷方式</li>
+<li><strong>outputCol:</strong> 离散化后的属性名称 (默认值: quantileDiscretizer_######_output)</li>
+<li><strong>outputCols:</strong> 离散化后的属性名称，一次处理多个属性的便捷方式，次序和上面的<strong>inputCols</strong>一致</li>
+<li><strong>numBuckets:</strong> 需要分成多少个类别(bucket)，分完箱之后每个类别的编号取值范围为<span style="color:blue">0～numBuckets-1</span> (&gt;=2的整数，默认值: 2)</li>
+<li><strong>numBucketsArray:</strong> 针对每一个属性需要分成多少个类别(bucket)的值组成的数组，一次处理多个属性的便捷方式，次序和上面的<strong>inputCols</strong>一致 </li>
+<li><strong>handleInvalid:</strong> 表示在transform期间如何处理Null值。 (默认值: <span style="color:blue">error</span>)<br>可选项1. <span style="color:blue">skip</span>-放弃有Null值的row；<br>可选项2. <span style="color:blue">error</span>-抛出异常<code>org.apache.spark.SparkException: Failed to execute user defined function($anonfun$apply$1: (double) =&gt; double)</code>；<br>可选项3. <span style="color:blue">keep</span>-将Null值都放入一个额外的类别(bucket)，该额外类别编号为<strong>numBuckets</strong>定义的数字。 </li>
+<li><strong>relativeError:</strong> 分位数近似算法的误差精度 ([0,1]之间的实数，0表示没有误差，默认值0.001）</li>
+</ul>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> training = spark.createDataFrame(</span><br><span class="line">  <span class="type">Seq</span>((<span class="number">0</span>, <span class="number">18.0</span>, <span class="number">1000</span>), (<span class="number">1</span>, <span class="number">19.0</span>, <span class="number">2300</span>), (<span class="number">2</span>, <span class="number">8.0</span>, <span class="number">500</span>), (<span class="number">3</span>, <span class="number">5.0</span>, <span class="number">1500</span>), (<span class="number">4</span>, <span class="number">2.2</span>, <span class="number">1500</span>))</span><br><span class="line">).toDF(<span class="string">"id"</span>, <span class="string">"age"</span>, <span class="string">"income"</span>)</span><br><span class="line">training.show()</span><br><span class="line"><span class="comment">//    +---+----+------+</span></span><br><span class="line"><span class="comment">//    | id| age|income|</span></span><br><span class="line"><span class="comment">//    +---+----+------+</span></span><br><span class="line"><span class="comment">//    |  0|18.0|  1000|</span></span><br><span class="line"><span class="comment">//    |  1|19.0|  2300|</span></span><br><span class="line"><span class="comment">//    |  2| 8.0|   500|</span></span><br><span class="line"><span class="comment">//    |  3| 5.0|  1500|</span></span><br><span class="line"><span class="comment">//    |  4| 2.2|  1500|</span></span><br><span class="line"><span class="comment">//    +---+----+------+</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> discretizer = <span class="keyword">new</span> <span class="type">QuantileDiscretizer</span>()</span><br><span class="line">  .setInputCols(<span class="type">Array</span>(<span class="string">"age"</span>, <span class="string">"income"</span>))</span><br><span class="line">  .setOutputCols(<span class="type">Array</span>(<span class="string">"ageBucket"</span>, <span class="string">"incomeBucket"</span>))</span><br><span class="line">  .setNumBucketsArray(<span class="type">Array</span>(<span class="number">3</span>, <span class="number">2</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> model = discretizer.fit(training)</span><br><span class="line">model.transform(training).show()</span><br><span class="line"><span class="comment">//    +---+----+------+---------+------------+</span></span><br><span class="line"><span class="comment">//    | id| age|income|ageBucket|incomeBucket|</span></span><br><span class="line"><span class="comment">//    +---+----+------+---------+------------+</span></span><br><span class="line"><span class="comment">//    |  0|18.0|  1000|      2.0|         0.0|</span></span><br><span class="line"><span class="comment">//    |  1|19.0|  2300|      2.0|         1.0|</span></span><br><span class="line"><span class="comment">//    |  2| 8.0|   500|      1.0|         0.0|</span></span><br><span class="line"><span class="comment">//    |  3| 5.0|  1500|      1.0|         1.0|</span></span><br><span class="line"><span class="comment">//    |  4| 2.2|  1500|      0.0|         1.0|</span></span><br><span class="line"><span class="comment">//    +---+----+------+---------+------------+</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> test = spark.createDataFrame(</span><br><span class="line">  <span class="type">Seq</span>((<span class="number">0</span>, <span class="type">Double</span>.<span class="type">NaN</span>, <span class="number">188.0</span>), (<span class="number">1</span>, <span class="number">19.0</span>, <span class="number">-2300.0</span>),</span><br><span class="line">    (<span class="number">2</span>, <span class="number">34.4</span>, <span class="type">Double</span>.<span class="type">NaN</span>),</span><br><span class="line">    (<span class="number">3</span>, <span class="number">-55.0</span>, <span class="number">345.0</span>), (<span class="number">4</span>, <span class="number">2.2</span>, <span class="number">1500.0</span>))</span><br><span class="line">).toDF(<span class="string">"id"</span>, <span class="string">"age"</span>, <span class="string">"income"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  model.transform(test).show()</span><br><span class="line">&#125; <span class="keyword">catch</span> &#123;  <span class="comment">//error from NaN value.</span></span><br><span class="line">  <span class="keyword">case</span> ex: <span class="type">SparkException</span> =&gt; println(ex)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">model.setHandleInvalid(<span class="string">"keep"</span>)</span><br><span class="line">model.transform(test).show()</span><br><span class="line"><span class="comment">//    +---+-----+-------+---------+------------+</span></span><br><span class="line"><span class="comment">//    | id|  age| income|ageBucket|incomeBucket|</span></span><br><span class="line"><span class="comment">//    +---+-----+-------+---------+------------+</span></span><br><span class="line"><span class="comment">//    |  0|  NaN|  188.0|      3.0|         0.0|</span></span><br><span class="line"><span class="comment">//    |  1| 19.0|-2300.0|      2.0|         0.0|</span></span><br><span class="line"><span class="comment">//    |  2| 34.4|    NaN|      2.0|         2.0|</span></span><br><span class="line"><span class="comment">//    |  3|-55.0|  345.0|      0.0|         0.0|</span></span><br><span class="line"><span class="comment">//    |  4|  2.2| 1500.0|      0.0|         1.0|</span></span><br><span class="line"><span class="comment">//    +---+-----+-------+---------+------------+</span></span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -184,331 +199,122 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://ratlsun.github.io/2018/03/29/QuantileDiscretizer/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/03/09/NaiveBayes/" class="archive-article-date">
-  	<time datetime="2018-03-09T04:34:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-09</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2018/03/09/NaiveBayes/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Spark MLib 每月一算法 —— NaiveBayes</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/03/09/NaiveBayes/">Spark MLib 每月一算法 —— NaiveBayes</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spark</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">NaiveBayes</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">朴素贝叶斯</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/02/19/LogisticRegression/" class="archive-article-date">
-  	<time datetime="2018-02-19T08:19:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/02/19/LogisticRegression/">Spark MLib 每周一算法 —— LogisticRegression</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spark</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LogisticRegression</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">逻辑回归</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/02/14/VectorIndexer/" class="archive-article-date">
-  	<time datetime="2018-02-14T11:44:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/02/14/VectorIndexer/">Spark MLib 每日一算法 —— VectorIndexer</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spark</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">VectorIndexer</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/02/06/PCA/" class="archive-article-date">
-  	<time datetime="2018-02-06T07:31:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-06</time>
-</a>
-        </div>
-    	 
+  <div id="gitment-ctn"></div> 
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: "Spark MLib 每月一算法 —— QuantileDiscretizer",
+  owner: 'ratlsun',
+  repo: 'ratlsun.github.io',
+  oauth: {
+    client_id: 'd32a1212cd677fda1ff2',
+    client_secret: '87f127a477d5cd25b94918483dce971882e799ea',
+  },
+})
+gitment.render('gitment-ctn')
+</script>
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/02/06/PCA/">Spark MLib 每日一算法 —— PCA</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spark</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PCA</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">主成分分析</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/02/05/VectorAssembler/" class="archive-article-date">
-  	<time datetime="2018-02-05T11:45:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/02/05/VectorAssembler/">Spark MLib 每日一算法 —— VectorAssembler</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spark</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">VectorAssembler</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/02/04/StringIndexer/" class="archive-article-date">
-  	<time datetime="2018-02-04T11:50:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/02/04/StringIndexer/">Spark MLib 每日一算法 —— StringIndexer</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spark</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">StringIndexer</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -531,8 +337,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
