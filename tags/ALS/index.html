@@ -6,19 +6,14 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://ratlsun.github.io">
-  <title>Spark MLib 每日一算法 —— VectorAssembler | Spark MLib wctkn</title>
+  <title>Tag: ALS | Spark MLib wctkn</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="VectorAssemblerVectorAssembler是一个Transformer，用来将数据集中多个属性按次序组合成一个类型为向量vector的属性，以便后续其他适用于向量数据的算法(逻辑回归，决策树，主成分等等)使用。被组合的属性类型可以是数字(numeric)，布尔(boolean)以及向量(vector)。">
-<meta name="keywords" content="Spark,机器学习,算法,VectorAssembler">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Spark MLib 每日一算法 —— VectorAssembler">
-<meta property="og:url" content="http://ratlsun.github.io/2018/02/05/VectorAssembler/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Spark MLib wctkn">
+<meta property="og:url" content="http://ratlsun.github.io/tags/ALS/index.html">
 <meta property="og:site_name" content="Spark MLib wctkn">
-<meta property="og:description" content="VectorAssemblerVectorAssembler是一个Transformer，用来将数据集中多个属性按次序组合成一个类型为向量vector的属性，以便后续其他适用于向量数据的算法(逻辑回归，决策树，主成分等等)使用。被组合的属性类型可以是数字(numeric)，布尔(boolean)以及向量(vector)。">
-<meta property="og:updated_time" content="2018-03-01T16:03:54.311Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spark MLib 每日一算法 —— VectorAssembler">
-<meta name="twitter:description" content="VectorAssemblerVectorAssembler是一个Transformer，用来将数据集中多个属性按次序组合成一个类型为向量vector的属性，以便后续其他适用于向量数据的算法(逻辑回归，决策树，主成分等等)使用。被组合的属性类型可以是数字(numeric)，布尔(boolean)以及向量(vector)。">
+<meta name="twitter:title" content="Spark MLib wctkn">
   
     <link rel="alternative" href="/atom.xml" title="Spark MLib wctkn" type="application/atom+xml">
   
@@ -128,40 +123,36 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-VectorAssembler" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      Spark MLib 每日一算法 —— VectorAssembler
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2018" class="archive-year">2018</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2018/07/01/CollaborativeFiltering/" class="archive-article-date">
+  	<time datetime="2018-07-01T14:54:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-01</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2018/07/01/CollaborativeFiltering/">Spark MLib 每季一算法 —— CollaborativeFiltering</a>
     </h1>
   
 
-        
-        <a href="/2018/02/05/VectorAssembler/" class="archive-article-date">
-  	<time datetime="2018-02-05T11:45:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="VectorAssembler"><a href="#VectorAssembler" class="headerlink" title="VectorAssembler"></a>VectorAssembler</h3><p>VectorAssembler是一个Transformer，用来将数据集中多个属性按次序组合成一个类型为向量vector的属性，以便后续其他适用于向量数据的算法(逻辑回归，决策树，主成分等等)使用。被组合的属性类型可以是数字(numeric)，布尔(boolean)以及向量(vector)。</p>
-<a id="more"></a>
-<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><ul>
-<li><strong>inputCols:</strong> 需要组合的属性名称数组</li>
-<li><strong>outputCol:</strong> 组合后的向量属性名称 (默认值: vecAssembler_######_output)</li>
-</ul>
-<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> dataset = spark.createDataFrame(</span><br><span class="line">  <span class="type">Seq</span>((<span class="number">0</span>, <span class="number">18</span>, <span class="number">1.0</span>, <span class="type">Vectors</span>.dense(<span class="number">0.0</span>, <span class="number">10.0</span>, <span class="number">0.5</span>), <span class="number">1.0</span>))</span><br><span class="line">).toDF(<span class="string">"id"</span>, <span class="string">"hour"</span>, <span class="string">"mobile"</span>, <span class="string">"userFeatures"</span>, <span class="string">"clicked"</span>)</span><br><span class="line">dataset.show()</span><br><span class="line"><span class="comment">//    +---+----+------+--------------+-------+</span></span><br><span class="line"><span class="comment">//    | id|hour|mobile|  userFeatures|clicked|</span></span><br><span class="line"><span class="comment">//    +---+----+------+--------------+-------+</span></span><br><span class="line"><span class="comment">//    |  0|  18|   1.0|[0.0,10.0,0.5]|    1.0|</span></span><br><span class="line"><span class="comment">//    +---+----+------+--------------+-------+</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> assembler = <span class="keyword">new</span> <span class="type">VectorAssembler</span>()</span><br><span class="line">  .setInputCols(<span class="type">Array</span>(<span class="string">"hour"</span>, <span class="string">"mobile"</span>, <span class="string">"userFeatures"</span>))</span><br><span class="line">  .setOutputCol(<span class="string">"features"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> output = assembler.transform(dataset)</span><br><span class="line">output.show(<span class="literal">false</span>)</span><br><span class="line"><span class="comment">//    +---+----+------+--------------+-------+-----------------------+</span></span><br><span class="line"><span class="comment">//    |id |hour|mobile|userFeatures  |clicked|features               |</span></span><br><span class="line"><span class="comment">//    +---+----+------+--------------+-------+-----------------------+</span></span><br><span class="line"><span class="comment">//    |0  |18  |1.0   |[0.0,10.0,0.5]|1.0    |[18.0,1.0,0.0,10.0,0.5]|</span></span><br><span class="line"><span class="comment">//    +---+----+------+--------------+-------+-----------------------+</span></span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -179,137 +170,33 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">VectorAssembler</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">CollaborativeFiltering</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">协同过滤</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ALS</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://ratlsun.github.io/2018/02/05/VectorAssembler/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2018/02/06/PCA/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Spark MLib 每日一算法 —— PCA
-        
-      </div>
-    </a>
   
   
-    <a href="/2018/02/04/StringIndexer/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Spark MLib 每日一算法 —— StringIndexer</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
-  <div id="gitment-ctn"></div> 
-<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-<script>
-var gitment = new Gitment({
-  id: "Spark MLib 每日一算法 —— VectorAssembler",
-  owner: 'ratlsun',
-  repo: 'ratlsun.github.io',
-  oauth: {
-    client_id: 'd32a1212cd677fda1ff2',
-    client_secret: '87f127a477d5cd25b94918483dce971882e799ea',
-  },
-})
-gitment.render('gitment-ctn')
-</script>
-  
+    
 
 
           </div>
@@ -332,9 +219,9 @@ gitment.render('gitment-ctn')
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
