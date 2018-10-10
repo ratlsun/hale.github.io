@@ -125,6 +125,99 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-DecisionTree" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/04/DecisionTree/">Spark MLib 每季一算法 —— DecisionTree</a>
+    </h1>
+  
+
+        
+        <a href="/2018/10/04/DecisionTree/" class="archive-article-date">
+  	<time datetime="2018-10-04T06:49:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="DecisionTree-决策树"><a href="#DecisionTree-决策树" class="headerlink" title="DecisionTree(决策树)"></a>DecisionTree(决策树)</h3><p>DecisionTree通常被用来做分类器，但算法本身也可以做回归(Regression)模型的。相比逻辑回归(Logistic regression)和线性回归(Linear regression)，使用决策树建立的分类器有很好的可解释新(人类能知道为什么)，能够直接处理离散型的属性(feature)数据，不需要对所有属性值进行归一化处理，能更好的识别非线性对应关系。而缺点就是过拟合比较严重，需要通过剪枝来解决，不过现在有ensemble method可以来处理，所以Spark里不提供对单个树剪枝的方法以及参数。</p>
+<p>Spark中根据决策树的用法，实现了2个Estimator类，分别是用作分类(处理label是类别)的DecisionTreeClassifier和用作回归(处理label是连续数值)的DecisionTreeRegressor，从而两者也在fit训练数据后产出不同的模型对象，DecisionTreeClassificationModel和DecisionTreeRegressionModel。两者其实本质上没有差别，核心的不同就是IG(information gain)算法不一样，Spark之所以分2个类，主要是出于工程实现的原因，因为在Spark里回归和分类有一些统一处理的逻辑在各自的基类继承树中需要被重用。数据集被模型对象transform后的输出都包含了最终预测的分类或数值(prediction)，另外DecisionTreeClassificationModel额外输出测试数据最终所在叶子节点的各个label的个数(rawPrediction)以及这些个数占总数的比值(probability)，而DecisionTreeRegressionModel额外输出测试数据最终所在叶子节点的所有label值的方差(variance)</p>
+        
+          <a class="article-more-a" href="/2018/10/04/DecisionTree/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spark</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">DecisionTree</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">决策树</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/10/04/DecisionTree/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-CollaborativeFiltering" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -984,7 +1077,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">StringIndexer</a>
+                <a href="javascript:void(0)" class="js-tag color1">NaiveBayes</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">朴素贝叶斯</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">DecisionTree</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">决策树</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1004,19 +1109,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">VectorAssembler</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VectorIndexer</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">NaiveBayes</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">朴素贝叶斯</a>
+                <a href="javascript:void(0)" class="js-tag color4">StringIndexer</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1029,6 +1122,14 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">分箱</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">VectorAssembler</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VectorIndexer</a>
               </li>
             
             <div class="clearfix"></div>

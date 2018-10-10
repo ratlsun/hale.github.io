@@ -15,7 +15,7 @@
 <meta property="og:url" content="http://ratlsun.github.io/2018/03/09/NaiveBayes/index.html">
 <meta property="og:site_name" content="Spark MLib wctkn">
 <meta property="og:description" content="NaiveBayes(朴素贝叶斯)NaiveBayes是一个Estimator，是比较基础的分类算法。输入带有label和features列的训练集得到分类器模型；NaiveBayesModel是spark对训练集fit后的模型对象，该对象中存放了模型为了预测最终概率而存放的一些中间值，比如所有分类在数据集中的先验概率对数；最终transform新数据的输出包含了原有输入信息，先验概率与条件概率乘">
-<meta property="og:updated_time" content="2018-03-10T04:17:29.100Z">
+<meta property="og:updated_time" content="2018-10-04T14:48:15.994Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark MLib 每月一算法 —— NaiveBayes">
 <meta name="twitter:description" content="NaiveBayes(朴素贝叶斯)NaiveBayes是一个Estimator，是比较基础的分类算法。输入带有label和features列的训练集得到分类器模型；NaiveBayesModel是spark对训练集fit后的模型对象，该对象中存放了模型为了预测最终概率而存放的一些中间值，比如所有分类在数据集中的先验概率对数；最终transform新数据的输出包含了原有输入信息，先验概率与条件概率乘">
@@ -151,7 +151,7 @@
         <h3 id="NaiveBayes-朴素贝叶斯"><a href="#NaiveBayes-朴素贝叶斯" class="headerlink" title="NaiveBayes(朴素贝叶斯)"></a>NaiveBayes(朴素贝叶斯)</h3><p>NaiveBayes是一个Estimator，是比较基础的分类算法。输入带有label和features列的训练集得到分类器模型；NaiveBayesModel是spark对训练集fit后的模型对象，该对象中存放了模型为了预测最终概率而存放的一些中间值，比如所有分类在数据集中的先验概率对数；最终transform新数据的输出包含了原有输入信息，先验概率与条件概率乘积后的对数(raw prediction)，各个分类值的后验概率(probability)以及最终预测的分类(prediction)。</p>
 <a id="more"></a>
 <h3 id="伪算法过程"><a href="#伪算法过程" class="headerlink" title="伪算法过程"></a>伪算法过程</h3><p><strong>贝叶斯公式</strong><br>贝叶斯公式是一种通过已知的先验概率和条件概率来求得后验概率的公式：<br>$$p(C|F_{1},…,F_{n})=\frac{p(C)p(F_{1},…,F_{n}|C)}{p(F_{1},…,F_{n})}$$<br>其中左式部分就要求的当属性集合F的一组数据发生时，类别C的条件概率，又被称为后验概率(posterior)；右式中的$p(C)$表示C分类发生的先验概率(prior)；右式中的$p(F_{1},…,F_{n}|C)$是当C类样本发生后属性集出现某一组值的条件概率(likelihood)；右式中的$p(F_{1},…,F_{n})$是整个属性集上某一组值发生的概率(evidence)，这部分对于所有分类C来说是常数。<br>根据贝叶斯公式，以最大的C类别出现的概率作为分类结果，既是贝叶斯分类。由于likelihood的计算需要知道各个属性间的联合概率分布，难以精确计算，所以在这个模型前我们假设各个属性相互独立，这样的话，likelihood就变为计算各个属性发生的概率的乘积：<br>$$p(F_{1},…,F_{n}|C)=\prod_{i=1}^{n}p(F_{i}|C)$$<br>这种所有属性相互独立的假设大家都觉得比较艰(tu)苦(de)朴(diao)素(zha)，所以这样的模型被称为朴素贝叶斯分类模型。</p>
-<p><strong>模型</strong><br>Spark中可以使用的贝叶斯模型有2种类型，取决于属性集代表的含义，当属性集字段中的数值表示每种属性出现的频次(&gt;=0)数据时，使用multinomial模型，当属性集字段中的数值表示某件事情发生和未发生时(只能是0/1)，使用bernoulli模型。(现实中属性集如果是正态分布的连续型随机变量，比如身高体重等，则可以使用Gaussian Naive Bayes模型，但Spark当前版本2.2.0内还没有实现改模型)</p>
+<p><strong>模型</strong><br>Spark中可以使用的贝叶斯模型有2种类型，取决于属性集代表的含义，当属性集字段中的数值表示每种属性出现的频次(&gt;=0)数据时，使用multinomial模型，当属性集字段中的数值表示某件事情发生和未发生时(只能是0/1)，使用bernoulli模型。(现实中属性集如果是正态分布的连续型随机变量，比如身高体重等，则可以使用Gaussian Naive Bayes模型，但Spark当前版本2.2.0内还没有实现该模型)</p>
 <p><strong>概率计算</strong><br>贝叶斯模型的计算比较简单，可以直接精确计算，不需要想线性回归算法那样进行迭代拟合，所以执行效率非常高。Spark的实现——公式中的先验概率(prior)——$p(C)$使用训练集中C类样本出现的频率来近似；条件概率(likelihood)——$p(F_{1},…,F_{n}|C)$使用训练集每个C类样本中各个属性F出现的频率来近似；全概率常量(evidence)——$p(F_{1},…,F_{n})$相当于各个分类C发生后的条件概率的和，不再需要单独计算。</p>
 <p><strong>平滑补偿</strong><br>平滑补偿(Additive smoothing)是用来在贝叶斯模型的训练集中出现某些分类值缺失，或者某些属性值缺失(频率为0)的情况下，使得模型不出现0概率的预测。频率计算通常采用出现的次数/总体样本数，当出现的次数在训练集中恰巧缺失的情况下，出现0概率预测，为了避免这种情况，默认给频次和总体样本数加上一个小到可以忽略不计的补偿值α。公式如下，当α=1时也称为拉普拉斯平滑(Laplace smoothing)：<br>$$\frac{f_{i}+\alpha}{N+\alpha{d}}\quad (i=1,…,d)$$<br>上式中d为属性f可能的取值范围，这样所有可能性加起来还能保证为全概率1。Spark中如果是multinomial模型，d为所有features数；如果是bernoulli模型d为2。</p>
 <p><strong>权重</strong><br>Spark支持带权重的朴素贝叶斯模型，权重值相当于对训练集数据做了采样(Sampling)，在计算属性频率时会乘上权重值。</p>
@@ -462,7 +462,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">StringIndexer</a>
+                <a href="javascript:void(0)" class="js-tag color1">NaiveBayes</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">朴素贝叶斯</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">DecisionTree</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">决策树</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -482,19 +494,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">VectorAssembler</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VectorIndexer</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">NaiveBayes</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">朴素贝叶斯</a>
+                <a href="javascript:void(0)" class="js-tag color4">StringIndexer</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -507,6 +507,14 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">分箱</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">VectorAssembler</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VectorIndexer</a>
               </li>
             
             <div class="clearfix"></div>
