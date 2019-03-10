@@ -15,7 +15,7 @@
 <meta property="og:url" content="http://ratlsun.github.io/2018/10/04/DecisionTree/index.html">
 <meta property="og:site_name" content="Spark MLib wctkn">
 <meta property="og:description" content="DecisionTree(决策树)DecisionTree通常被用来做分类器，但算法本身也可以做回归(Regression)模型的。相比逻辑回归(Logistic regression)和线性回归(Linear regression)，使用决策树建立的分类器有很好的可解释新(人类能知道为什么)，能够直接处理离散型的属性(feature)数据，不需要对所有属性值进行归一化处理，能更好的识别非线性对应">
-<meta property="og:updated_time" content="2018-10-10T18:05:15.182Z">
+<meta property="og:updated_time" content="2019-03-10T05:22:46.075Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark MLib 每季一算法 —— DecisionTree">
 <meta name="twitter:description" content="DecisionTree(决策树)DecisionTree通常被用来做分类器，但算法本身也可以做回归(Regression)模型的。相比逻辑回归(Logistic regression)和线性回归(Linear regression)，使用决策树建立的分类器有很好的可解释新(人类能知道为什么)，能够直接处理离散型的属性(feature)数据，不需要对所有属性值进行归一化处理，能更好的识别非线性对应">
@@ -159,7 +159,7 @@
 <li>方差(Variance)，只用于回归算法：$\frac{1}{N}\sum_{i=1}^{N}(y_{i}-μ)^{2}$</li>
 </ol>
 <p>其中$f_{i}$是节点数据集中某个分类label出现的频率。</p>
-<p><strong>节点分裂时的划分规则</strong><br>当节点分裂时，在计算IG之前还需要确定划分方式，这是因为现实中在还有大量属性值的情况下，无法逐个计算所有划分方式带来的IG值。<br>对于属性值连续的情况，Spark采用分箱的方式来做数据集划分，用户可以指定最大分箱个数(maxBins)，箱体数量确定后，Spark使用近似分位数算法(和之前文章介绍过的QuantileDiscretizer中使用的算法一样)将连续数据处理成离散数据。<br>对于离散类别属性值，所有可能的备选划分方案总共有$2^{M−1}−1$，其中M是类别属性值的数量。由此可见，当有些属性如果属性值非常多的情况下，IG计算量是非常大的。在做回归和二分类(label非0即1)决策树的情况下，备选划分可以被简化，这时Spark先对数据集中具有某一个属性值的数据的label值做一次求均值，然后根据均值排序，按序依次做出左右二分，所有这些划分合起来就是备选的划分方案，所以最终方案被缩减到M-1个。在多分类问题下，其实Spark在当$2^{M−1}−1$多于最大指定分箱数(maxBins)的情况下，也会做类似的简化，但需要预先计算每个类别数据的纯度值，然后按照纯度值排序依次做划分，相当于也缩减到M-1个划分。</p>
+<p><strong>节点分裂时的划分规则</strong><br>当节点分裂时，在计算IG之前还需要确定划分方式，这是因为现实中在还有大量属性值的情况下，无法逐个计算所有划分方式带来的IG值。<br>对于属性值连续的情况，Spark采用分箱的方式来做数据集划分，用户可以指定最大分箱个数(maxBins)，箱体数量确定后，Spark使用近似分位数算法(和之前文章介绍过的<a href="/2018/03/29/QuantileDiscretizer">QuantileDiscretizer</a>中使用的算法一样)将连续数据处理成离散数据。<br>对于离散类别属性值，所有可能的备选划分方案总共有$2^{M−1}−1$，其中M是类别属性值的数量。由此可见，当有些属性如果属性值非常多的情况下，IG计算量是非常大的。在做回归和二分类(label非0即1)决策树的情况下，备选划分可以被简化，这时Spark先对数据集中具有某一个属性值的数据的label值做一次求均值，然后根据均值排序，按序依次做出左右二分，所有这些划分合起来就是备选的划分方案，所以最终方案被缩减到M-1个。在多分类问题下，其实Spark在当$2^{M−1}−1$多于最大指定分箱数(maxBins)的情况下，也会做类似的简化，但需要预先计算每个类别数据的纯度值，然后按照纯度值排序依次做划分，相当于也缩减到M-1个划分。</p>
 <h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><p></p><h5>输入输出相关:</h5><p></p>
 <ul>
 <li><strong>labelCol:</strong> 输入训练集中标记字段的名称 (默认值: label)</li>
@@ -286,6 +286,15 @@
   
 <nav id="article-nav">
   
+    <a href="/2019/03/10/RandomForests/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Spark MLib 每半年一算法 —— RandomForests
+        
+      </div>
+    </a>
+  
   
     <a href="/2018/07/01/CollaborativeFiltering/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">Spark MLib 每季一算法 —— CollaborativeFiltering</div>
@@ -347,7 +356,7 @@ gitment.render('gitment-ctn')
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 看日出的老鼠
+    		&copy; 2019 看日出的老鼠
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -452,6 +461,14 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">DecisionTree</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">决策树</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">CollaborativeFiltering</a>
               </li>
              
@@ -464,22 +481,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">NaiveBayes</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">朴素贝叶斯</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">DecisionTree</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">决策树</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">LogisticRegression</a>
               </li>
              
@@ -488,15 +489,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">NaiveBayes</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">朴素贝叶斯</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">PCA</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">主成分分析</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">StringIndexer</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -512,11 +517,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">StringIndexer</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">VectorAssembler</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">VectorIndexer</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">RandomForests</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">随机森林</a>
               </li>
             
             <div class="clearfix"></div>

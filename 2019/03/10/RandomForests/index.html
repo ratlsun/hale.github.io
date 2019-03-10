@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://ratlsun.github.io">
-  <title>Tag: ALS | Spark MLib wctkn</title>
+  <title>Spark MLib 每半年一算法 —— RandomForests | Spark MLib wctkn</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Spark MLib wctkn">
-<meta property="og:url" content="http://ratlsun.github.io/tags/ALS/index.html">
+  <meta name="description" content="RandomForests(随机森林)RandomForests是一种集成模型(Ensemble)，它通过将一组基础决策树(DecisionTree)模型的判别结果组合起来，从而进行最终的分类或者回归。相比单个的DecisionTree模型，RandomForests的好处是可以非常好的避免过拟合(overfitting)问题，这一优点也是所有集成模型的优点；提高RandomForests中基础决">
+<meta name="keywords" content="Spark,机器学习,算法,RandomForests,随机森林">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spark MLib 每半年一算法 —— RandomForests">
+<meta property="og:url" content="http://ratlsun.github.io/2019/03/10/RandomForests/index.html">
 <meta property="og:site_name" content="Spark MLib wctkn">
+<meta property="og:description" content="RandomForests(随机森林)RandomForests是一种集成模型(Ensemble)，它通过将一组基础决策树(DecisionTree)模型的判别结果组合起来，从而进行最终的分类或者回归。相比单个的DecisionTree模型，RandomForests的好处是可以非常好的避免过拟合(overfitting)问题，这一优点也是所有集成模型的优点；提高RandomForests中基础决">
+<meta property="og:updated_time" content="2019-03-10T13:08:30.369Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spark MLib wctkn">
+<meta name="twitter:title" content="Spark MLib 每半年一算法 —— RandomForests">
+<meta name="twitter:description" content="RandomForests(随机森林)RandomForests是一种集成模型(Ensemble)，它通过将一组基础决策树(DecisionTree)模型的判别结果组合起来，从而进行最终的分类或者回归。相比单个的DecisionTree模型，RandomForests的好处是可以非常好的避免过拟合(overfitting)问题，这一优点也是所有集成模型的优点；提高RandomForests中基础决">
   
     <link rel="alternative" href="/atom.xml" title="Spark MLib wctkn" type="application/atom+xml">
   
@@ -123,36 +128,59 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-RandomForests" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/07/01/CollaborativeFiltering/" class="archive-article-date">
-  	<time datetime="2018-07-01T14:54:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-01</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/07/01/CollaborativeFiltering/">Spark MLib 每季一算法 —— CollaborativeFiltering</a>
+    <h1 class="article-title" itemprop="name">
+      Spark MLib 每半年一算法 —— RandomForests
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/03/10/RandomForests/" class="archive-article-date">
+  	<time datetime="2019-03-10T04:19:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="RandomForests-随机森林"><a href="#RandomForests-随机森林" class="headerlink" title="RandomForests(随机森林)"></a>RandomForests(随机森林)</h3><p>RandomForests是一种集成模型(Ensemble)，它通过将一组基础决策树(<a href="/2018/10/04/DecisionTree">DecisionTree</a>)模型的判别结果组合起来，从而进行最终的分类或者回归。相比单个的DecisionTree模型，RandomForests的好处是可以非常好的避免过拟合(overfitting)问题，这一优点也是所有集成模型的优点；提高RandomForests中基础决策树的数量也能提升模型性能，但模型生成时间就会变长。</p>
+<p>和DecisionTree一样，Spark中根据RandomForests的用法，实现了2个Estimator类，分别是用作分类(处理label是类别)的RandomForestClassifier和用作回归(处理label是连续数值)的RandomForestRegressor，从而两者也在fit训练数据后产出不同的模型对象，RandomForestClassificationModel和RandomForestRegressionModel。两者的区别主要在于各自使用的基础决策树模型和最终的模型结果组合算法上。数据集被模型对象transform后的输出都包含了最终预测的分类或数值(prediction)，另外RandomForestClassificationModel额外输出各个基础决策树得到的分类结果的和(rawPrediction)以及这个数据的归一化值(probability)。<br><a id="more"></a></p>
+<h3 id="伪算法过程"><a href="#伪算法过程" class="headerlink" title="伪算法过程"></a>伪算法过程</h3><p><strong>Bagging 和 Boosting</strong><br>集成模型通常有2种：Bagging 和 Boosting。Bagging的思想是并行的用不同的策略生成多个基础模型，然后在投票阶段进行结果组合。而Boosting的思想是从前一个基础模型的准确率出发，调整测试数据的权重，从而生成下一个进化的基础模型，最终按照这些基础模型的权重得出最终结果。RandomForests是一种Bagging算法，它会按照不同的划分策略(随机选择参与备选划分的特征)，针对训练数据的不同的抽样子集(比如bootstrapping抽样)，生成不同的决策树，最后根据这些决策树的结果组合出最终结果。</p>
+<p><strong>投票</strong><br>集成算法最终要根据不同的基础决策树来计算最终的结果，这个过程也可以被称作投票。RandomForests被作为分类器时，投票算法就是简单的看那个分类结果得到的票数多。当被作为回归器的时候，就会取各个基础决策树的预测结果的平均值作为最终结果。</p>
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><p>RandomForests会在计算过程中使用<a href="/2018/10/04/DecisionTree">DecisionTree</a>算法，所以很多DecisionTree中使用的参数在这里也适用，就不一一列出了。</p>
+<p></p><h5>输入输出相关:</h5><p></p>
+<ul>
+<li><strong>RandomForestClassificationModel.rawPredictionCol:</strong> 输出结果数据中存放各个决策树得到的各个label的个数的字段名称 (默认值: rawPrediction)</li>
+<li><strong>RandomForestClassificationModel.probabilityCol:</strong> 输出结果数据中存放<code>rawPredictionCol</code>归一化值的字段名称 (默认值: probability)</li>
+<li><strong>RandomForestClassificationModel.predictionCol:</strong> 输出结果数据中最终判别类别的字段名称 (默认值: prediction)</li>
+<li><strong>RandomForestRegressionModel.predictionCol:</strong> 输出结果数据中最终预测的数据值的字段名称 (默认值: prediction)</li>
+</ul>
+<p></p><h5>算法模型相关:</h5><p></p>
+<ul>
+<li><strong>featureSubsetStrategy:</strong> 节点分裂时特性选取策略，减少备选特性数量可以加快模型生成速度，但太低会导致模型性能下降(默认值：<span style="color:blue">auto</span>)：<br>可选项1. <span style="color:blue">auto</span>-系统自动选择，如果numTrees参数值为1(单颗树，非森林)，则选择<span style="color:blue">all</span>；如果numTrees参数值大于1，则分类时选择<span style="color:blue">sqrt</span>，回归时选择<span style="color:blue">onethird</span>。<br>可选项2. <span style="color:blue">all</span>-选所有特征。<br>可选项3. <span style="color:blue">onethird</span>-随机选1/3的特征。<br>可选项4. <span style="color:blue">sqrt</span>-随机选开方个数特征。<br>可选项5. <span style="color:blue">log2</span>-随机选以2为底的对数个特征。<br>可选项6. <span style="color:blue">(0,1]之间的数字f</span>-随机选总数*f个特征。</li>
+<li><strong>numTrees:</strong> 随机森林包含的决策树个数，提高这个值能提升模型性能，但模型生成时间就会线性增长。(&gt;=1整数，默认值: 20)</li>
+<li><strong>subsamplingRate:</strong> 随机抽样率，生成每棵决策树时选取的测试数据集的抽样子集，子集越小，模型生成速度越快。建议使用全集，不做抽样。((0,1]之间的实数，默认值: 1.0)</li>
+</ul>
+<h3 id="model对象的成员"><a href="#model对象的成员" class="headerlink" title="model对象的成员"></a>model对象的成员</h3><ul>
+<li><strong>totalNumNodes:</strong> 随机森林包含的节点总数，包括所有决策树的内部节点和叶子节点。</li>
+<li><strong>trees:</strong> 随机森林中所有树模型对象的集合，类型是<code>DecisionTreeClassificationModel</code>的数组。</li>
+<li><strong>treeWeights:</strong> 随机森林中每棵树的权重。</li>
+<li><strong>toDebugString:</strong> 输出整个森林的树形结构。</li>
+</ul>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//======================= classifier =======================</span></span><br><span class="line">    <span class="keyword">var</span> training = spark.createDataFrame(<span class="type">Seq</span>(</span><br><span class="line">      (<span class="number">1.0</span>, <span class="type">Vectors</span>.dense(<span class="number">0.0</span>, <span class="number">11.0</span>, <span class="number">1.0</span>)),</span><br><span class="line">      (<span class="number">0.0</span>, <span class="type">Vectors</span>.dense(<span class="number">2.0</span>, <span class="number">10.0</span>, <span class="number">1.0</span>)),</span><br><span class="line">      (<span class="number">0.0</span>, <span class="type">Vectors</span>.dense(<span class="number">2.0</span>, <span class="number">13.0</span>, <span class="number">1.0</span>)),</span><br><span class="line">      (<span class="number">1.0</span>, <span class="type">Vectors</span>.dense(<span class="number">0.0</span>, <span class="number">12.0</span>, <span class="number">5.0</span>))</span><br><span class="line">    )).toDF(<span class="string">"label"</span>, <span class="string">"features"</span>)</span><br><span class="line">    training.show(<span class="literal">false</span>)</span><br><span class="line">    <span class="comment">//    +-----+--------------+</span></span><br><span class="line">    <span class="comment">//    |label|features      |</span></span><br><span class="line">    <span class="comment">//    +-----+--------------+</span></span><br><span class="line">    <span class="comment">//    |1.0  |[0.0,11.0,1.0]|</span></span><br><span class="line">    <span class="comment">//    |0.0  |[2.0,10.0,1.0]|</span></span><br><span class="line">    <span class="comment">//    |0.0  |[2.0,13.0,1.0]|</span></span><br><span class="line">    <span class="comment">//    |1.0  |[0.0,12.0,5.0]|</span></span><br><span class="line">    <span class="comment">//    +-----+--------------+</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> rfc = <span class="keyword">new</span> <span class="type">RandomForestClassifier</span>().setFeatureSubsetStrategy(<span class="string">"onethird"</span>).setNumTrees(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> cModel = rfc.fit(training)</span><br><span class="line"></span><br><span class="line">    println(<span class="string">s"RandomForestClassifier model's trees and totalNodes: <span class="subst">$&#123;cModel.trees.length&#125;</span> / <span class="subst">$&#123;cModel.totalNumNodes&#125;</span>"</span>)</span><br><span class="line">    <span class="comment">//  5 / 15  (5棵树，15个节点)</span></span><br><span class="line">    println(<span class="string">"RandomForestClassifier model's treeWeights: "</span> + cModel.treeWeights.mkString(<span class="string">", "</span>))</span><br><span class="line">    <span class="comment">//  [1.0, 1.0, 1.0, 1.0, 1.0] (随机森林各个树的权重是一样的)</span></span><br><span class="line">    println(<span class="string">"RandomForestClassifier model's debug info: "</span> + cModel.toDebugString)</span><br><span class="line">    <span class="comment">//    Tree 0 (weight 1.0):</span></span><br><span class="line">    <span class="comment">//    If (feature 0 &lt;= 1.0)</span></span><br><span class="line">    <span class="comment">//    Predict: 1.0</span></span><br><span class="line">    <span class="comment">//    Else (feature 0 &gt; 1.0)</span></span><br><span class="line">    <span class="comment">//    Predict: 0.0</span></span><br><span class="line">    <span class="comment">//    Tree 1 (weight 1.0):</span></span><br><span class="line">    <span class="comment">//    If (feature 2 &lt;= 3.0)</span></span><br><span class="line">    <span class="comment">//    If (feature 1 &lt;= 11.5)</span></span><br><span class="line">    <span class="comment">//    Predict: 0.0</span></span><br><span class="line">    <span class="comment">//    Else (feature 1 &gt; 11.5)</span></span><br><span class="line">    <span class="comment">//    Predict: 0.0</span></span><br><span class="line">    <span class="comment">//    Else (feature 2 &gt; 3.0)</span></span><br><span class="line">    <span class="comment">//    Predict: 1.0</span></span><br><span class="line">    <span class="comment">//    Tree 2 (weight 1.0):</span></span><br><span class="line">    <span class="comment">//    If (feature 0 &lt;= 1.0)</span></span><br><span class="line">    <span class="comment">//    Predict: 1.0</span></span><br><span class="line">    <span class="comment">//    Else (feature 0 &gt; 1.0)</span></span><br><span class="line">    <span class="comment">//    Predict: 0.0</span></span><br><span class="line">    <span class="comment">//    Tree 3 (weight 1.0):</span></span><br><span class="line">    <span class="comment">//    Predict: 0.0</span></span><br><span class="line">    <span class="comment">//    Tree 4 (weight 1.0):</span></span><br><span class="line">    <span class="comment">//    If (feature 1 &lt;= 10.5)</span></span><br><span class="line">    <span class="comment">//    Predict: 0.0</span></span><br><span class="line">    <span class="comment">//    Else (feature 1 &gt; 10.5)</span></span><br><span class="line">    <span class="comment">//    Predict: 1.0</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> data = <span class="type">Array</span>(</span><br><span class="line">      <span class="type">Vectors</span>.dense(<span class="number">1.0</span>, <span class="number">15.0</span>, <span class="number">13</span>),</span><br><span class="line">      <span class="type">Vectors</span>.dense(<span class="number">3.0</span>, <span class="number">12.0</span>, <span class="number">1</span>),</span><br><span class="line">      <span class="type">Vectors</span>.dense(<span class="number">0.0</span>, <span class="number">22.0</span>, <span class="number">5</span>)</span><br><span class="line">    )</span><br><span class="line">    <span class="keyword">var</span> test = spark.createDataFrame(data.map(<span class="type">Tuple1</span>.apply)).toDF(<span class="string">"features"</span>)</span><br><span class="line">    test.show</span><br><span class="line">    <span class="comment">//    +---------------+</span></span><br><span class="line">    <span class="comment">//    |       features|</span></span><br><span class="line">    <span class="comment">//    +---------------+</span></span><br><span class="line">    <span class="comment">//    |[1.0,15.0,13.0]|</span></span><br><span class="line">    <span class="comment">//    |  [3.0,2.0,1.0]|</span></span><br><span class="line">    <span class="comment">//    | [0.0,22.0,5.0]|</span></span><br><span class="line">    <span class="comment">//    +---------------+</span></span><br><span class="line"></span><br><span class="line">    cModel.transform(test).show(<span class="literal">false</span>)</span><br><span class="line">    <span class="comment">//    +---------------+-------------+-----------+----------+</span></span><br><span class="line">    <span class="comment">//    |features       |rawPrediction|probability|prediction|</span></span><br><span class="line">    <span class="comment">//    +---------------+-------------+-----------+----------+</span></span><br><span class="line">    <span class="comment">//    |[1.0,15.0,13.0]|[0.5,4.5]    |[0.1,0.9]  |1.0       |</span></span><br><span class="line">    <span class="comment">//    |[3.0,2.0,1.0]  |[4.0,1.0]    |[0.8,0.2]  |0.0       |</span></span><br><span class="line">    <span class="comment">//    |[0.0,22.0,5.0] |[0.5,4.5]    |[0.1,0.9]  |1.0       |</span></span><br><span class="line">    <span class="comment">//    +---------------+-------------+-----------+----------+</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">//======================= regression =======================</span></span><br><span class="line">    training = spark.createDataFrame(<span class="type">Seq</span>(</span><br><span class="line">      (<span class="number">3.0</span>, <span class="type">Vectors</span>.dense(<span class="number">0.0</span>, <span class="number">1.1</span>, <span class="number">0.1</span>)),</span><br><span class="line">      (<span class="number">0.0</span>, <span class="type">Vectors</span>.dense(<span class="number">2.0</span>, <span class="number">1.0</span>, <span class="number">-1.0</span>)),</span><br><span class="line">      (<span class="number">0.0</span>, <span class="type">Vectors</span>.dense(<span class="number">2.0</span>, <span class="number">1.3</span>, <span class="number">1.0</span>)),</span><br><span class="line">      (<span class="number">1.0</span>, <span class="type">Vectors</span>.dense(<span class="number">0.0</span>, <span class="number">1.2</span>, <span class="number">-0.5</span>))</span><br><span class="line">    )).toDF(<span class="string">"label"</span>, <span class="string">"features"</span>)</span><br><span class="line">    training.show(<span class="literal">false</span>)</span><br><span class="line">    <span class="comment">//    +-----+--------------+</span></span><br><span class="line">    <span class="comment">//    |label|features      |</span></span><br><span class="line">    <span class="comment">//    +-----+--------------+</span></span><br><span class="line">    <span class="comment">//    |3.0  |[0.0,1.1,0.1] |</span></span><br><span class="line">    <span class="comment">//    |0.0  |[2.0,1.0,-1.0]|</span></span><br><span class="line">    <span class="comment">//    |0.0  |[2.0,1.3,1.0] |</span></span><br><span class="line">    <span class="comment">//    |1.0  |[0.0,1.2,-0.5]|</span></span><br><span class="line">    <span class="comment">//    +-----+--------------+</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> rfr = <span class="keyword">new</span> <span class="type">RandomForestRegressor</span>().setNumTrees(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> rModel = rfr.fit(training)</span><br><span class="line"></span><br><span class="line">    println(<span class="string">s"RandomForestRegressor model's trees and totalNodes: <span class="subst">$&#123;cModel.trees.length&#125;</span> / <span class="subst">$&#123;rModel.totalNumNodes&#125;</span>"</span>)</span><br><span class="line">    <span class="comment">//  5 / 19  (5棵树，19个节点)</span></span><br><span class="line">    println(<span class="string">"RandomForestRegressor model's treeWeights: "</span> + rModel.treeWeights.mkString)</span><br><span class="line">    <span class="comment">//  [1.0, 1.0, 1.0, 1.0, 1.0] (随机森林各个树的权重是一样的)</span></span><br><span class="line">    println(<span class="string">"RandomForestRegressor model's debug info: "</span> + rModel.toDebugString)</span><br><span class="line">    <span class="comment">//    Tree 0 (weight 1.0):</span></span><br><span class="line">    <span class="comment">//    Predict: 0.0</span></span><br><span class="line">    <span class="comment">//    Tree 1 (weight 1.0):</span></span><br><span class="line">    <span class="comment">//    If (feature 0 &lt;= 1.0)</span></span><br><span class="line">    <span class="comment">//    If (feature 1 &lt;= 1.15)</span></span><br><span class="line">    <span class="comment">//    Predict: 3.0</span></span><br><span class="line">    <span class="comment">//    Else (feature 1 &gt; 1.15)</span></span><br><span class="line">    <span class="comment">//    Predict: 1.0</span></span><br><span class="line">    <span class="comment">//    Else (feature 0 &gt; 1.0)</span></span><br><span class="line">    <span class="comment">//    Predict: 0.0</span></span><br><span class="line">    <span class="comment">//    Tree 2 (weight 1.0):</span></span><br><span class="line">    <span class="comment">//    If (feature 0 &lt;= 1.0)</span></span><br><span class="line">    <span class="comment">//    If (feature 2 &lt;= -0.2)</span></span><br><span class="line">    <span class="comment">//    Predict: 1.0</span></span><br><span class="line">    <span class="comment">//    Else (feature 2 &gt; -0.2)</span></span><br><span class="line">    <span class="comment">//    Predict: 3.0</span></span><br><span class="line">    <span class="comment">//    Else (feature 0 &gt; 1.0)</span></span><br><span class="line">    <span class="comment">//    Predict: 0.0</span></span><br><span class="line">    <span class="comment">//    Tree 3 (weight 1.0):</span></span><br><span class="line">    <span class="comment">//    If (feature 0 &lt;= 1.0)</span></span><br><span class="line">    <span class="comment">//    If (feature 2 &lt;= -0.2)</span></span><br><span class="line">    <span class="comment">//    Predict: 1.0</span></span><br><span class="line">    <span class="comment">//    Else (feature 2 &gt; -0.2)</span></span><br><span class="line">    <span class="comment">//    Predict: 3.0</span></span><br><span class="line">    <span class="comment">//    Else (feature 0 &gt; 1.0)</span></span><br><span class="line">    <span class="comment">//    Predict: 0.0</span></span><br><span class="line">    <span class="comment">//    Tree 4 (weight 1.0):</span></span><br><span class="line">    <span class="comment">//    If (feature 1 &lt;= 1.25)</span></span><br><span class="line">    <span class="comment">//    Predict: 1.0</span></span><br><span class="line">    <span class="comment">//    Else (feature 1 &gt; 1.25)</span></span><br><span class="line">    <span class="comment">//    Predict: 0.0</span></span><br><span class="line"></span><br><span class="line">    data = <span class="type">Array</span>(</span><br><span class="line">      <span class="type">Vectors</span>.dense(<span class="number">-1.0</span>, <span class="number">1.5</span>, <span class="number">1.3</span>),</span><br><span class="line">      <span class="type">Vectors</span>.dense(<span class="number">3.0</span>, <span class="number">2.0</span>, <span class="number">-0.1</span>),</span><br><span class="line">      <span class="type">Vectors</span>.dense(<span class="number">0.0</span>, <span class="number">2.2</span>, <span class="number">-1.5</span>)</span><br><span class="line">    )</span><br><span class="line">    test = spark.createDataFrame(data.map(<span class="type">Tuple1</span>.apply)).toDF(<span class="string">"features"</span>)</span><br><span class="line">    test.show</span><br><span class="line">    <span class="comment">//    +--------------+</span></span><br><span class="line">    <span class="comment">//    |      features|</span></span><br><span class="line">    <span class="comment">//    +--------------+</span></span><br><span class="line">    <span class="comment">//    |[-1.0,1.5,1.3]|</span></span><br><span class="line">    <span class="comment">//    |[3.0,2.0,-0.1]|</span></span><br><span class="line">    <span class="comment">//    |[0.0,2.2,-1.5]|</span></span><br><span class="line">    <span class="comment">//    +--------------+</span></span><br><span class="line"></span><br><span class="line">    rModel.transform(test).show(<span class="literal">false</span>)</span><br><span class="line">    <span class="comment">//    +--------------+----------+</span></span><br><span class="line">    <span class="comment">//    |features      |prediction|</span></span><br><span class="line">    <span class="comment">//    +--------------+----------+</span></span><br><span class="line">    <span class="comment">//    |[-1.0,1.5,1.3]|1.4       |</span></span><br><span class="line">    <span class="comment">//    |[3.0,2.0,-0.1]|0.0       |</span></span><br><span class="line">    <span class="comment">//    |[0.0,2.2,-1.5]|0.6       |</span></span><br><span class="line">    <span class="comment">//    +--------------+----------+</span></span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -170,33 +198,132 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">CollaborativeFiltering</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">RandomForests</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">协同过滤</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ALS</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">随机森林</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://ratlsun.github.io/2019/03/10/RandomForests/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2018/10/04/DecisionTree/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Spark MLib 每季一算法 —— DecisionTree</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
+  <div id="gitment-ctn"></div> 
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: "Spark MLib 每半年一算法 —— RandomForests",
+  owner: 'ratlsun',
+  repo: 'ratlsun.github.io',
+  oauth: {
+    client_id: 'd32a1212cd677fda1ff2',
+    client_secret: '87f127a477d5cd25b94918483dce971882e799ea',
+  },
+})
+gitment.render('gitment-ctn')
+</script>
+  
 
 
           </div>
@@ -219,9 +346,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
