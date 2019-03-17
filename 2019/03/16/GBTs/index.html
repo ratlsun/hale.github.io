@@ -15,7 +15,7 @@
 <meta property="og:url" content="http://ratlsun.github.io/2019/03/16/GBTs/index.html">
 <meta property="og:site_name" content="Spark MLib wctkn">
 <meta property="og:description" content="GBTs(Gradient-boosted trees)GBTs也是一种基于基础决策树(DecisionTree)的集成模型(Ensemble)，它通过迭代方式不断基于当前的决策树生成下一棵树，最终将这一系列决策树的结果组合产生最终的结果，从而进行分类或者回归。和RandomForests一样，集成模型的好处是可以非常好的避免过拟合(overfitting)问题，同时它也能使得一个性能比较差的弱决">
-<meta property="og:updated_time" content="2019-03-17T11:45:47.230Z">
+<meta property="og:updated_time" content="2019-03-17T13:43:09.326Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark MLib 每周一算法 —— GBTs">
 <meta name="twitter:description" content="GBTs(Gradient-boosted trees)GBTs也是一种基于基础决策树(DecisionTree)的集成模型(Ensemble)，它通过迭代方式不断基于当前的决策树生成下一棵树，最终将这一系列决策树的结果组合产生最终的结果，从而进行分类或者回归。和RandomForests一样，集成模型的好处是可以非常好的避免过拟合(overfitting)问题，同时它也能使得一个性能比较差的弱决">
@@ -150,7 +150,7 @@
       
         <h3 id="GBTs-Gradient-boosted-trees"><a href="#GBTs-Gradient-boosted-trees" class="headerlink" title="GBTs(Gradient-boosted trees)"></a>GBTs(Gradient-boosted trees)</h3><p>GBTs也是一种基于基础决策树(<a href="/2018/10/04/DecisionTree">DecisionTree</a>)的集成模型(Ensemble)，它通过迭代方式不断基于当前的决策树生成下一棵树，最终将这一系列决策树的结果组合产生最终的结果，从而进行分类或者回归。和<a href="/2019/03/10/RandomForests">RandomForests</a>一样，集成模型的好处是可以非常好的避免过拟合(overfitting)问题，同时它也能使得一个性能比较差的弱决策树性能逐步变好。</p>
 <p>Spark中根据GBTs的用法，实现了2个Estimator类，分别是用作分类(处理label是类别，Spark2.4.0版本只支持二分类(binary classification))的GBTClassifier和用作回归(处理label是连续数值)的GBTRegressor，从而两者也在fit训练数据后产出不同的模型对象，GBTClassificationModel和GBTRegressionModel。两者的区别主要在于产生下一棵树时使用的目标损失函数(Loss)。数据集被模型对象transform后的输出都包含了最终预测的分类或数值(prediction)，另外GBTClassificationModel额外输出各个基础决策树得到的分类结果的加权和(rawPrediction)以及这个数据在信号函数作用后的归一化值(probability)。<br><a id="more"></a></p>
-<h3 id="伪算法过程"><a href="#伪算法过程" class="headerlink" title="伪算法过程"></a>伪算法过程</h3><p><strong>Bagging 和 Boosting</strong><br>集成模型通常有2种：Bagging 和 Boosting。Bagging的思想是并行的用不同的策略生成多个基础模型，然后在投票阶段进行结果组合。而Boosting的思想是从前一个基础模型的准确率出发，调整测试数据的权重或者优化目标，从而生成下一个进化的基础模型，最终按照这些基础模型的权重得出最终结果。GBTs是一种Boosting算法，它的迭代依据是前之前所有迭代产生的决策树的预测结果与标签数据的残差函数，下一棵树将以这个残差函数的导数作为新的label进行优化，所以新生成的树是整个预测的残差梯度方向的优化，即被称为梯度提升(Gradient-boosted)。最终结果为所有这一系列树结果的加权和函数。</p>
+<h3 id="伪算法过程"><a href="#伪算法过程" class="headerlink" title="伪算法过程"></a>伪算法过程</h3><p><strong>Bagging 和 Boosting</strong><br>集成模型通常有2种：Bagging 和 Boosting。Bagging的思想是并行的用不同的策略生成多个基础模型，然后在投票阶段进行结果组合。而Boosting的思想是从前一个基础模型的准确率出发，调整测试数据的权重或者优化目标，从而生成下一个进化的基础模型，最终按照这些基础模型的权重得出最终结果。GBTs是一种Boosting算法，它的迭代依据是之前所有迭代产生的决策树的预测结果与标签数据的残差函数，下一棵树将以这个残差函数的导数作为新的label进行优化，所以新生成的树是整个预测的残差梯度方向的优化，即被称为梯度提升(Gradient-boosted)。最终结果为所有这一系列树结果的加权和函数。</p>
 <p><strong>迭代中使用的损失函数</strong><br>在二分类时，迭代中产生下棵决策树的损失函数如下：<br>$$2\sum_{i=1}^{N}log(1+e^{-2y_{i}F(x_{i})})$$<br>其中N为训练数据样本个数，$y_{i}$为第i个训练数据的实际分类值(这里取-1或1)，$F(x_{i})$为当前决策树对第i条数据的预测分类值(也是取-1或1)。所以当预测正确时，残差值为$2log(1+e^{-2})$，不正确时为$2log(1+e^{-2})$。下一棵决策树将依据该函数的导函数 $\frac{-4y_{i}}{1+e^{2y_{i}F(x_{i})}}$ 作为新的label值进行生成，所以迭代过程使用的决策树都是回归树。</p>
 <p>在回归时，迭代中产生下棵决策树的损失函数有以下2个选择：<br>平方误差：$$\sum_{i=1}^{N}(y_{i}-F(x_{i}))^{2}$$<br>和绝对值误差：$$\sum_{i=1}^{N}|y_{i}-F(x_{i})|$$</p>
 <p><strong>迭代提前终止</strong><br>树的迭代次数增多，能有效提升精度，但如果树的数量过多，那就会出现过拟合问题。Spark中可以设置在每次迭代后进行数据验证，当某个迭代的结果(当前残差)对之前最佳的残差的提升在验证数据(由validationIndicatorCol标明)上不足某个阈值(validationTol*max(当前残差,0.01))时，整个学习过程就会终止。</p>
