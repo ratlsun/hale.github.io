@@ -15,7 +15,7 @@
 <meta property="og:url" content="http://ratlsun.github.io/2019/03/10/RandomForests/index.html">
 <meta property="og:site_name" content="Spark MLib wctkn">
 <meta property="og:description" content="RandomForests(随机森林)RandomForests是一种集成模型(Ensemble)，它通过将一组基础决策树(DecisionTree)模型的判别结果组合起来，从而进行最终的分类或者回归。相比单个的DecisionTree模型，RandomForests的好处是可以非常好的避免过拟合(overfitting)问题，这一优点也是所有集成模型的优点；提高RandomForests中基础决">
-<meta property="og:updated_time" content="2019-03-10T13:08:30.369Z">
+<meta property="og:updated_time" content="2019-03-16T09:01:02.417Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark MLib 每半年一算法 —— RandomForests">
 <meta name="twitter:description" content="RandomForests(随机森林)RandomForests是一种集成模型(Ensemble)，它通过将一组基础决策树(DecisionTree)模型的判别结果组合起来，从而进行最终的分类或者回归。相比单个的DecisionTree模型，RandomForests的好处是可以非常好的避免过拟合(overfitting)问题，这一优点也是所有集成模型的优点；提高RandomForests中基础决">
@@ -150,7 +150,7 @@
       
         <h3 id="RandomForests-随机森林"><a href="#RandomForests-随机森林" class="headerlink" title="RandomForests(随机森林)"></a>RandomForests(随机森林)</h3><p>RandomForests是一种集成模型(Ensemble)，它通过将一组基础决策树(<a href="/2018/10/04/DecisionTree">DecisionTree</a>)模型的判别结果组合起来，从而进行最终的分类或者回归。相比单个的DecisionTree模型，RandomForests的好处是可以非常好的避免过拟合(overfitting)问题，这一优点也是所有集成模型的优点；提高RandomForests中基础决策树的数量也能提升模型性能，但模型生成时间就会变长。</p>
 <p>和DecisionTree一样，Spark中根据RandomForests的用法，实现了2个Estimator类，分别是用作分类(处理label是类别)的RandomForestClassifier和用作回归(处理label是连续数值)的RandomForestRegressor，从而两者也在fit训练数据后产出不同的模型对象，RandomForestClassificationModel和RandomForestRegressionModel。两者的区别主要在于各自使用的基础决策树模型和最终的模型结果组合算法上。数据集被模型对象transform后的输出都包含了最终预测的分类或数值(prediction)，另外RandomForestClassificationModel额外输出各个基础决策树得到的分类结果的和(rawPrediction)以及这个数据的归一化值(probability)。<br><a id="more"></a></p>
-<h3 id="伪算法过程"><a href="#伪算法过程" class="headerlink" title="伪算法过程"></a>伪算法过程</h3><p><strong>Bagging 和 Boosting</strong><br>集成模型通常有2种：Bagging 和 Boosting。Bagging的思想是并行的用不同的策略生成多个基础模型，然后在投票阶段进行结果组合。而Boosting的思想是从前一个基础模型的准确率出发，调整测试数据的权重，从而生成下一个进化的基础模型，最终按照这些基础模型的权重得出最终结果。RandomForests是一种Bagging算法，它会按照不同的划分策略(随机选择参与备选划分的特征)，针对训练数据的不同的抽样子集(比如bootstrapping抽样)，生成不同的决策树，最后根据这些决策树的结果组合出最终结果。</p>
+<h3 id="伪算法过程"><a href="#伪算法过程" class="headerlink" title="伪算法过程"></a>伪算法过程</h3><p><strong>Bagging 和 Boosting</strong><br>集成模型通常有2种：Bagging 和 Boosting。Bagging的思想是并行的用不同的策略生成多个基础模型，然后在投票阶段进行结果组合。而Boosting的思想是从前一个基础模型的准确率出发，调整测试数据的权重或者优化目标，从而生成下一个进化的基础模型，最终按照这些基础模型的权重得出最终结果。RandomForests是一种Bagging算法，它会按照不同的划分策略(随机选择参与备选划分的特征)，针对训练数据的不同的抽样子集(比如bootstrapping抽样)，生成不同的决策树，最后根据这些决策树的结果组合出最终结果。</p>
 <p><strong>投票</strong><br>集成算法最终要根据不同的基础决策树来计算最终的结果，这个过程也可以被称作投票。RandomForests被作为分类器时，投票算法就是简单的看那个分类结果得到的票数多。当被作为回归器的时候，就会取各个基础决策树的预测结果的平均值作为最终结果。</p>
 <h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><p>RandomForests会在计算过程中使用<a href="/2018/10/04/DecisionTree">DecisionTree</a>算法，所以很多DecisionTree中使用的参数在这里也适用，就不一一列出了。</p>
 <p></p><h5>输入输出相关:</h5><p></p>
@@ -168,7 +168,7 @@
 </ul>
 <h3 id="model对象的成员"><a href="#model对象的成员" class="headerlink" title="model对象的成员"></a>model对象的成员</h3><ul>
 <li><strong>totalNumNodes:</strong> 随机森林包含的节点总数，包括所有决策树的内部节点和叶子节点。</li>
-<li><strong>trees:</strong> 随机森林中所有树模型对象的集合，类型是<code>DecisionTreeClassificationModel</code>的数组。</li>
+<li><strong>trees:</strong> 随机森林中所有树模型对象的集合，类型是<code>DecisionTreeClassificationModel</code>或者<code>DecisionTreeRegressionModel</code>的数组。</li>
 <li><strong>treeWeights:</strong> 随机森林中每棵树的权重。</li>
 <li><strong>toDebugString:</strong> 输出整个森林的树形结构。</li>
 </ul>
@@ -271,6 +271,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2019/03/16/GBTs/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Spark MLib 每周一算法 —— GBTs
+        
+      </div>
+    </a>
   
   
     <a href="/2018/10/04/DecisionTree/" id="article-nav-older" class="article-nav-link-wrap">
@@ -438,11 +447,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">DecisionTree</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">决策树</a>
+                <a href="javascript:void(0)" class="js-tag color5">GBTs</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -458,11 +463,35 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">DecisionTree</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">决策树</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">RandomForests</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">随机森林</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">LogisticRegression</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">逻辑回归</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">PCA</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">主成分分析</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -474,11 +503,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">PCA</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">主成分分析</a>
+                <a href="javascript:void(0)" class="js-tag color4">StringIndexer</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -494,23 +519,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">StringIndexer</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">VectorAssembler</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">VectorIndexer</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RandomForests</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">随机森林</a>
               </li>
             
             <div class="clearfix"></div>

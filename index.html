@@ -125,6 +125,95 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-GBTs" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/16/GBTs/">Spark MLib 每周一算法 —— GBTs</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/16/GBTs/" class="archive-article-date">
+  	<time datetime="2019-03-16T03:23:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="GBTs-Gradient-boosted-trees"><a href="#GBTs-Gradient-boosted-trees" class="headerlink" title="GBTs(Gradient-boosted trees)"></a>GBTs(Gradient-boosted trees)</h3><p>GBTs也是一种基于基础决策树(<a href="/2018/10/04/DecisionTree">DecisionTree</a>)的集成模型(Ensemble)，它通过迭代方式不断基于当前的决策树生成下一棵树，最终将这一系列决策树的结果组合产生最终的结果，从而进行分类或者回归。和<a href="/2019/03/10/RandomForests">RandomForests</a>一样，集成模型的好处是可以非常好的避免过拟合(overfitting)问题，同时它也能使得一个性能比较差的弱决策树性能逐步变好。</p>
+<p>Spark中根据GBTs的用法，实现了2个Estimator类，分别是用作分类(处理label是类别，Spark2.4.0版本只支持二分类(binary classification))的GBTClassifier和用作回归(处理label是连续数值)的GBTRegressor，从而两者也在fit训练数据后产出不同的模型对象，GBTClassificationModel和GBTRegressionModel。两者的区别主要在于产生下一棵树时使用的目标损失函数(Loss)。数据集被模型对象transform后的输出都包含了最终预测的分类或数值(prediction)，另外GBTClassificationModel额外输出各个基础决策树得到的分类结果的加权和(rawPrediction)以及这个数据在信号函数作用后的归一化值(probability)。<br>
+        
+          <a class="article-more-a" href="/2019/03/16/GBTs/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spark</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">GBTs</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/16/GBTs/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-RandomForests" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -955,94 +1044,10 @@
 
 
   
-    <article id="post-StringIndexer" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/02/04/StringIndexer/">Spark MLib 每日一算法 —— StringIndexer</a>
-    </h1>
-  
-
-        
-        <a href="/2018/02/04/StringIndexer/" class="archive-article-date">
-  	<time datetime="2018-02-04T11:50:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="StringIndexer"><a href="#StringIndexer" class="headerlink" title="StringIndexer"></a>StringIndexer</h3><p>StringIndexer是一个Estimator，用来将某个文本属性的值转化成数字编码index，以便后续其他适用于数字编码的算法使用。编码规则是对该文本属性每个出现的属性值label给出从<span style="color:blue">0～label数量-1</span>的数字，出现频率越高的label，给出的编码数字就越小。由此看出StringIndexer是需要根据已有训练集来进行fit的。</p>
-        
-          <a class="article-more-a" href="/2018/02/04/StringIndexer/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spark</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">StringIndexer</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/02/04/StringIndexer/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
   
 
 
@@ -1158,11 +1163,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">DecisionTree</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">决策树</a>
+                <a href="javascript:void(0)" class="js-tag color5">GBTs</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1178,11 +1179,35 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">DecisionTree</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">决策树</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">RandomForests</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">随机森林</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">LogisticRegression</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">逻辑回归</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">PCA</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">主成分分析</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1194,11 +1219,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">PCA</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">主成分分析</a>
+                <a href="javascript:void(0)" class="js-tag color4">StringIndexer</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1214,23 +1235,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">StringIndexer</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">VectorAssembler</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">VectorIndexer</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RandomForests</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">随机森林</a>
               </li>
             
             <div class="clearfix"></div>

@@ -15,7 +15,7 @@
 <meta property="og:url" content="http://ratlsun.github.io/2018/02/19/LogisticRegression/index.html">
 <meta property="og:site_name" content="Spark MLib wctkn">
 <meta property="og:description" content="LogisticRegression(逻辑回归)LogisticRegression是一个Estimator，是常用的分类算法之一。输入带有label和features列的训练集得到分类器模型；LogisticRegressionModel是spark对训练集fit后的模型对象，该对象中存放了各个线性属性的系数值和LogisticRegressionSummary对象(Spark2.2.0暂时只实">
-<meta property="og:updated_time" content="2018-03-01T16:25:51.887Z">
+<meta property="og:updated_time" content="2019-03-16T05:18:46.014Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark MLib 每周一算法 —— LogisticRegression">
 <meta name="twitter:description" content="LogisticRegression(逻辑回归)LogisticRegression是一个Estimator，是常用的分类算法之一。输入带有label和features列的训练集得到分类器模型；LogisticRegressionModel是spark对训练集fit后的模型对象，该对象中存放了各个线性属性的系数值和LogisticRegressionSummary对象(Spark2.2.0暂时只实">
@@ -157,7 +157,7 @@
 <p>类似的损失函数如下形式，其中1{y=j}为示性函数(y等于j时为1，否则为0)：<br>$$\sum_{j=1}^{K}1\{y=j\}log\frac{e^{X\beta_{j}}}{\sum_{k=1}^{K}e^{X\beta_{k}}}$$</p>
 <p><strong>截距</strong><br>Spark默认使用带截距(intercept term)的线性回归，就是说模型系数里会带有一个常量值，当然也可以在确保实际数据必过原点的情况下设置采用不带截距的线性回归。</p>
 <p><strong>权重</strong><br>Spark支持带权重的回归模型，权重值相当于对训练集数据做了采样(Sampling)，比如对于比较常见的不平衡(imbalanced)数据的二分类逻辑回归(比如疾病诊断)，训练集中label=1的数据占了95%，那就可以设置label=1的数据的权重为0.05，而label=0的数据权重为0.95，这样可以避免模型对应该为label=0的数据大量误判。</p>
-<p><strong>标准化</strong><br>Spark支持对训练集的属性数据先做标准化(Standardization)处理，线性回归的解本身对数据的scala程度没有依赖，做标准化处理后的解也与原始数据等价。单通常会做标准化处理，这样会使得迭代算法达到更好的收敛效果。Spark给出的最终线性系数是基于原始输入数据的。</p>
+<p><strong>标准化</strong><br>Spark支持对训练集的属性数据先做标准化(Standardization)处理，线性回归的解本身对数据的scale程度没有依赖，做标准化处理后的解也与原始数据等价。单通常会做标准化处理，这样会使得迭代算法达到更好的收敛效果。Spark给出的最终线性系数是基于原始输入数据的。</p>
 <p><strong>对系数的限制</strong><br>Spark可以在回归时对系数的取值范围做出限制，这时采用LBFGS的优化算法LBFGS-B(bound-constrained optimization)。</p>
 <h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><p></p><h5>输入输出相关:</h5><p></p>
 <ul>
@@ -485,11 +485,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">DecisionTree</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">决策树</a>
+                <a href="javascript:void(0)" class="js-tag color5">GBTs</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -505,11 +501,35 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">DecisionTree</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">决策树</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">RandomForests</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">随机森林</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">LogisticRegression</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">逻辑回归</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">PCA</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">主成分分析</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -521,11 +541,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">PCA</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">主成分分析</a>
+                <a href="javascript:void(0)" class="js-tag color4">StringIndexer</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -541,23 +557,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">StringIndexer</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">VectorAssembler</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">VectorIndexer</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RandomForests</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">随机森林</a>
               </li>
             
             <div class="clearfix"></div>
