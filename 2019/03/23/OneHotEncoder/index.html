@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://ratlsun.github.io">
-  <title>Spark MLib 每日一算法 —— PCA | Spark MLib wctkn</title>
+  <title>Spark MLib 每周一算法 —— OneHotEncoder | Spark MLib wctkn</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="PCA(主成分分析)PCA是一个Estimator，是数据降维的常用算法之一，用来将数据集中的大量属性降低至可计算范围的数量，以便后续的对属性的数量有性能依赖的算法使用，所以在机器学习领域通常用来做数据预处理，但在传统统计分析领域，也有用PCA来直接做数据分析的(拿到主成分后做因子分析，得出各原始属性对主属性的贡献大小，从而在业务上确定那些属性比较重要)。">
-<meta name="keywords" content="Spark,机器学习,算法,PCA,主成分分析">
+  <meta name="description" content="OneHotEncoderOneHotEncoder是一个Estimator，用来将某个类别index属性(整数值)的值转化成向量值，该向量值的特点是每个分量不是0就是1，并且最多只有1个分量是1，这个分量是1即代表这条数据的这个特性取得特定的属性值，所以被称作One-Hot(独热)。这样的向量可以将离散分类数据变成可用于回归类算法的连续数据。">
+<meta name="keywords" content="Spark,机器学习,算法,OneHotEncoder,独热编码">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spark MLib 每日一算法 —— PCA">
-<meta property="og:url" content="http://ratlsun.github.io/2018/02/06/PCA/index.html">
+<meta property="og:title" content="Spark MLib 每周一算法 —— OneHotEncoder">
+<meta property="og:url" content="http://ratlsun.github.io/2019/03/23/OneHotEncoder/index.html">
 <meta property="og:site_name" content="Spark MLib wctkn">
-<meta property="og:description" content="PCA(主成分分析)PCA是一个Estimator，是数据降维的常用算法之一，用来将数据集中的大量属性降低至可计算范围的数量，以便后续的对属性的数量有性能依赖的算法使用，所以在机器学习领域通常用来做数据预处理，但在传统统计分析领域，也有用PCA来直接做数据分析的(拿到主成分后做因子分析，得出各原始属性对主属性的贡献大小，从而在业务上确定那些属性比较重要)。">
-<meta property="og:updated_time" content="2018-03-01T16:03:15.345Z">
+<meta property="og:description" content="OneHotEncoderOneHotEncoder是一个Estimator，用来将某个类别index属性(整数值)的值转化成向量值，该向量值的特点是每个分量不是0就是1，并且最多只有1个分量是1，这个分量是1即代表这条数据的这个特性取得特定的属性值，所以被称作One-Hot(独热)。这样的向量可以将离散分类数据变成可用于回归类算法的连续数据。">
+<meta property="og:updated_time" content="2019-03-24T02:07:44.380Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spark MLib 每日一算法 —— PCA">
-<meta name="twitter:description" content="PCA(主成分分析)PCA是一个Estimator，是数据降维的常用算法之一，用来将数据集中的大量属性降低至可计算范围的数量，以便后续的对属性的数量有性能依赖的算法使用，所以在机器学习领域通常用来做数据预处理，但在传统统计分析领域，也有用PCA来直接做数据分析的(拿到主成分后做因子分析，得出各原始属性对主属性的贡献大小，从而在业务上确定那些属性比较重要)。">
+<meta name="twitter:title" content="Spark MLib 每周一算法 —— OneHotEncoder">
+<meta name="twitter:description" content="OneHotEncoderOneHotEncoder是一个Estimator，用来将某个类别index属性(整数值)的值转化成向量值，该向量值的特点是每个分量不是0就是1，并且最多只有1个分量是1，这个分量是1即代表这条数据的这个特性取得特定的属性值，所以被称作One-Hot(独热)。这样的向量可以将离散分类数据变成可用于回归类算法的连续数据。">
   
     <link rel="alternative" href="/atom.xml" title="Spark MLib wctkn" type="application/atom+xml">
   
@@ -128,40 +128,40 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-PCA" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-OneHotEncoder" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Spark MLib 每日一算法 —— PCA
+      Spark MLib 每周一算法 —— OneHotEncoder
     </h1>
   
 
         
-        <a href="/2018/02/06/PCA/" class="archive-article-date">
-  	<time datetime="2018-02-06T07:31:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-06</time>
+        <a href="/2019/03/23/OneHotEncoder/" class="archive-article-date">
+  	<time datetime="2019-03-23T04:31:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-23</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="PCA-主成分分析"><a href="#PCA-主成分分析" class="headerlink" title="PCA(主成分分析)"></a>PCA(主成分分析)</h3><p>PCA是一个Estimator，是数据降维的常用算法之一，用来将数据集中的大量属性降低至可计算范围的数量，以便后续的对属性的数量有性能依赖的算法使用，所以在机器学习领域通常用来做数据预处理，但在传统统计分析领域，也有用PCA来直接做数据分析的(拿到主成分后做因子分析，得出各原始属性对主属性的贡献大小，从而在业务上确定那些属性比较重要)。</p>
-<a id="more"></a>
-<h3 id="伪算法过程"><a href="#伪算法过程" class="headerlink" title="伪算法过程"></a>伪算法过程</h3><p>PCA本质上就是个矩阵的坐标变换算法，所以永远是有解的。<br>PCA的计算过程相当于是把向量数据集变换到一个新的坐标系统中，使得所有数据的在第一个新坐标轴上的距离最小，从而找到第一主成分，再去掉第一主成分之后，利用同样的方式找到第二主成分，依次类推，最终达到预先定义的缩减后的维度。<br>Spark是根据通过计算奇异值分解(SVD)来计算结果矩阵的，该算法可以并发执行的。</p>
-<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>因为实际应用(非图像类数据)中原始维度规模相对行数来说是非常小的，这时PCA的运行性能主要依赖于数据集的行数，并不特别依赖于原始维度大小。<br>通过上述的算法可以看出，PCA是保留原始数据变化信息最多(变换坐标后数据方差最大)的降维算法，所以通常用来去除一些强相关的属性，保留下来的都是独立变化的属性，并且变化程度都会被尽可能的在降维后保留下来。如果需要降维后保留数据的显著类别信息，就需要用其他降维算法。<br>PCA算法对各个原始属性的取值范围规模敏感，所以实际处理过程中可能先需要做归一化处理，在Spark上，可以使用先StringIndexer和VectorIndexer将各个属性数据都变为频度索引编码值，这样在量刚上就统一了，相当于做了数据归一化。<br>PCA计算过程决定了不管最终维度设置成多少，对于同一数据集，得出的最终的结果矩阵，在每个主成分坐标上的分量值都是一致的，从而我们可以在执行fit前设置一个相对较大的最终维度值，然后根据一个阈值只保留在这个成分上的特征值(eigenvalue)比阈值大的成分，这样可以针对动态数据集最大限度的降低维度。特征值小到一定程度的特征向量方向本质上表明了这个成分属性的取值变化相当于他之前的成分属性已经可以忽略不计了。</p>
+        <h3 id="OneHotEncoder"><a href="#OneHotEncoder" class="headerlink" title="OneHotEncoder"></a>OneHotEncoder</h3><p>OneHotEncoder是一个Estimator，用来将某个类别index属性(整数值)的值转化成向量值，该向量值的特点是每个分量不是0就是1，并且最多只有1个分量是1，这个分量是1即代表这条数据的这个特性取得特定的属性值，所以被称作One-Hot(独热)。这样的向量可以将离散分类数据变成可用于回归类算法的连续数据。<br><a id="more"></a></p>
+<h3 id="编码规则"><a href="#编码规则" class="headerlink" title="编码规则"></a>编码规则</h3><p>Spark的OneHotEncoder的有两种编码规则如下，包含原点(0向量)和不包含原点：</p>
+<ol>
+<li>向量长度为训练数据中最大的index值，该最大index值对应的编码为全0向量，其他index值对应的编码为——在index对应的分量上值为1，其他分量值为0的向量。</li>
+<li>向量长度为训练数据中最大的index值+1，index值对应的编码为——在index对应的分量上值为1，其他分量值为0的向量。</li>
+</ol>
+<p><br></p>
 <h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><ul>
-<li><strong>inputCol:</strong> 需要降低维度的属性集合后的向量属性名称</li>
-<li><strong>outputCol:</strong> 降低维度之后的向量属性名称 (默认值: pca_######_output)</li>
-<li><strong>k:</strong> 降到k维 (必须&gt;0)</li>
+<li><strong>inputCols:</strong> 需要进行编码的一组属性名称，数组类型。</li>
+<li><strong>outputCols:</strong> 编码后的属性名称，数组类型，次序和上面的<strong>inputCols</strong>一一对应。</li>
+<li><strong>dropLast:</strong> 表示结果编码中是否包含原点(0向量)，具体规则见上面编码规则，<span style="color:blue">true</span>表示包含。(布尔类型，默认值: <span style="color:blue">true</span>)</li>
+<li><strong>handleInvalid:</strong> 表示在transform期间如何处理在fit训练集时没有碰到过的属性值或者非index(&gt;=0的整数值)。 (默认值: <span style="color:blue">error</span>)<br>可选项1. <span style="color:blue">error</span>-抛出异常<code>org.apache.spark.SparkException: Failed to execute user defined function</code>；<br>可选项2. <span style="color:blue">keep</span>-一旦需要transform的数据集里出现非法index值，所有的最终向量的长度都会+1，非法index值的处理也同样取决于<strong>dropLast:</strong>参数，非法index值会被转化为全0向量或者最后位为1的one-hot向量。</li>
 </ul>
-<h3 id="model方法"><a href="#model方法" class="headerlink" title="model方法"></a>model方法</h3><ul>
-<li><strong>explainedVariance():</strong> fit出的model可以使用该方法得到各个成分上的特征值(eigenvalue)。该值表达了数据集在各成分上的变化程度，越靠前的成分特征值就越大。</li>
-</ul>
-<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> data = <span class="type">Array</span>(</span><br><span class="line">  <span class="type">Vectors</span>.sparse(<span class="number">5</span>, <span class="type">Seq</span>((<span class="number">1</span>, <span class="number">1.0</span>), (<span class="number">3</span>, <span class="number">7.0</span>))),</span><br><span class="line">  <span class="type">Vectors</span>.dense(<span class="number">2.0</span>, <span class="number">0.0</span>, <span class="number">3.0</span>, <span class="number">4.0</span>, <span class="number">5.0</span>),</span><br><span class="line">  <span class="type">Vectors</span>.dense(<span class="number">4.0</span>, <span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">6.0</span>, <span class="number">7.0</span>)</span><br><span class="line">)</span><br><span class="line"><span class="keyword">val</span> df = spark.createDataFrame(data.map(<span class="type">Tuple1</span>.apply)).toDF(<span class="string">"features"</span>)</span><br><span class="line">df.show(<span class="literal">false</span>)</span><br><span class="line"><span class="comment">//    +---------------------+</span></span><br><span class="line"><span class="comment">//    |features             |</span></span><br><span class="line"><span class="comment">//    +---------------------+</span></span><br><span class="line"><span class="comment">//    |(5,[1,3],[1.0,7.0])  |</span></span><br><span class="line"><span class="comment">//    |[2.0,0.0,3.0,4.0,5.0]|</span></span><br><span class="line"><span class="comment">//    |[4.0,0.0,0.0,6.0,7.0]|</span></span><br><span class="line"><span class="comment">//    +---------------------+</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> model = <span class="keyword">new</span> <span class="type">PCA</span>()</span><br><span class="line">  .setInputCol(<span class="string">"features"</span>)</span><br><span class="line">  .setOutputCol(<span class="string">"pcaFeatures"</span>)</span><br><span class="line">  .setK(<span class="number">3</span>)</span><br><span class="line">  .fit(df)</span><br><span class="line">println(model.explainedVariance)</span><br><span class="line"><span class="comment">// [0.7943932532230529,0.20560674677694693,1.2572918541190959E-16]</span></span><br><span class="line"></span><br><span class="line">model.transform(df).show(<span class="literal">false</span>)</span><br><span class="line"><span class="comment">//  +---------------------+-----------------------------------------------------------+</span></span><br><span class="line"><span class="comment">//  |features             |pcaFeatures                                                |</span></span><br><span class="line"><span class="comment">//  +---------------------+-----------------------------------------------------------+</span></span><br><span class="line"><span class="comment">//  |(5,[1,3],[1.0,7.0])  |[1.6485728230883807,-4.013282700516296,-5.524543751369388] |</span></span><br><span class="line"><span class="comment">//  |[2.0,0.0,3.0,4.0,5.0]|[-4.645104331781534,-1.1167972663619026,-5.524543751369387]|</span></span><br><span class="line"><span class="comment">//  |[4.0,0.0,0.0,6.0,7.0]|[-6.428880535676489,-5.337951427775355,-5.524543751369389] |</span></span><br><span class="line"><span class="comment">//  +---------------------+-----------------------------------------------------------+</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 第三个成分的特征值已经非常小了，所以结果矩阵在这个成分分量上的值几乎相等，越后面的成分变化就越小，</span></span><br><span class="line"><span class="comment">// 所以可以假设这个数据集使用2个主成分就足够了。</span></span><br></pre></td></tr></table></figure>
-
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3>  <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> training = spark.createDataFrame(</span><br><span class="line">  <span class="type">Seq</span>((<span class="number">2.0</span>, <span class="number">1.0</span>),</span><br><span class="line">    (<span class="number">1.0</span>, <span class="number">3.0</span>),</span><br><span class="line">    (<span class="number">1.0</span>, <span class="number">1.0</span>),</span><br><span class="line">    (<span class="number">2.0</span>, <span class="number">2.0</span>),</span><br><span class="line">    (<span class="number">2.0</span>, <span class="number">1.0</span>),</span><br><span class="line">    (<span class="number">1.0</span>, <span class="number">100.0</span>))</span><br><span class="line">).toDF(<span class="string">"categoryIndex1"</span>, <span class="string">"categoryIndex2"</span>)</span><br><span class="line">training.show()</span><br><span class="line"><span class="comment">//    +--------------+--------------+</span></span><br><span class="line"><span class="comment">//    |categoryIndex1|categoryIndex2|</span></span><br><span class="line"><span class="comment">//    +--------------+--------------+</span></span><br><span class="line"><span class="comment">//    |           2.0|           1.0|</span></span><br><span class="line"><span class="comment">//    |           1.0|           3.0|</span></span><br><span class="line"><span class="comment">//    |           1.0|           1.0|</span></span><br><span class="line"><span class="comment">//    |           2.0|           2.0|</span></span><br><span class="line"><span class="comment">//    |           2.0|           1.0|</span></span><br><span class="line"><span class="comment">//    |           1.0|         100.0|</span></span><br><span class="line"><span class="comment">//    +--------------+--------------+</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> encoder = <span class="keyword">new</span> <span class="type">OneHotEncoderEstimator</span>()</span><br><span class="line">  .setInputCols(<span class="type">Array</span>(<span class="string">"categoryIndex1"</span>, <span class="string">"categoryIndex2"</span>))</span><br><span class="line">  .setOutputCols(<span class="type">Array</span>(<span class="string">"categoryVec1"</span>, <span class="string">"categoryVec2"</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> model = encoder.fit(training)</span><br><span class="line"></span><br><span class="line">model.transform(training).show()</span><br><span class="line"><span class="comment">//    +--------------+--------------+-------------+---------------+</span></span><br><span class="line"><span class="comment">//    |categoryIndex1|categoryIndex2| categoryVec1|   categoryVec2|</span></span><br><span class="line"><span class="comment">//    +--------------+--------------+-------------+---------------+</span></span><br><span class="line"><span class="comment">//    |           2.0|           1.0|    (2,[],[])|(100,[1],[1.0])|</span></span><br><span class="line"><span class="comment">//    |           1.0|           3.0|(2,[1],[1.0])|(100,[3],[1.0])|</span></span><br><span class="line"><span class="comment">//    |           1.0|           1.0|(2,[1],[1.0])|(100,[1],[1.0])|</span></span><br><span class="line"><span class="comment">//    |           2.0|           2.0|    (2,[],[])|(100,[2],[1.0])|</span></span><br><span class="line"><span class="comment">//    |           2.0|           1.0|    (2,[],[])|(100,[1],[1.0])|</span></span><br><span class="line"><span class="comment">//    |           1.0|         100.0|(2,[1],[1.0])|    (100,[],[])|</span></span><br><span class="line"><span class="comment">//    +--------------+--------------+-------------+---------------+</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> test = spark.createDataFrame(</span><br><span class="line">  <span class="type">Seq</span>((<span class="number">0</span>, <span class="number">104</span>), (<span class="number">-1</span>, <span class="number">0</span>), (<span class="number">2</span>, <span class="number">-100</span>), (<span class="number">1</span>, <span class="number">101</span>))</span><br><span class="line">).toDF(<span class="string">"categoryIndex1"</span>, <span class="string">"categoryIndex2"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  model.transform(test).show()</span><br><span class="line">&#125; <span class="keyword">catch</span> &#123;  <span class="comment">//error from -1 in categoryIndex1 &amp; -100/101/104 in categoryIndex2.</span></span><br><span class="line">  <span class="keyword">case</span> ex: <span class="type">SparkException</span> =&gt; println(ex)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">model.setHandleInvalid(<span class="string">"keep"</span>)</span><br><span class="line">model.transform(test).show()</span><br><span class="line"><span class="comment">//    +--------------+--------------+-------------+---------------+</span></span><br><span class="line"><span class="comment">//    |categoryIndex1|categoryIndex2| categoryVec1|   categoryVec2|</span></span><br><span class="line"><span class="comment">//    +--------------+--------------+-------------+---------------+</span></span><br><span class="line"><span class="comment">//    |             0|           104|(3,[0],[1.0])|    (101,[],[])|</span></span><br><span class="line"><span class="comment">//    |            -1|             0|    (3,[],[])|(101,[0],[1.0])|</span></span><br><span class="line"><span class="comment">//    |             2|          -100|(3,[2],[1.0])|    (101,[],[])|</span></span><br><span class="line"><span class="comment">//    |             1|           101|(3,[1],[1.0])|    (101,[],[])|</span></span><br><span class="line"><span class="comment">//    +--------------+--------------+-------------+---------------+</span></span><br></pre></td></tr></table></figure>
       
 
       
@@ -186,11 +186,11 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PCA</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">OneHotEncoder</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">主成分分析</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">独热编码</a>
         		</li>
       		
 		</ul>
@@ -246,7 +246,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://ratlsun.github.io/2018/02/06/PCA/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://ratlsun.github.io/2019/03/23/OneHotEncoder/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -260,18 +260,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/02/14/VectorIndexer/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Spark MLib 每日一算法 —— VectorIndexer
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/02/05/VectorAssembler/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Spark MLib 每日一算法 —— VectorAssembler</div>
+    <a href="/2019/03/16/GBTs/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Spark MLib 每周一算法 —— GBTs</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -310,7 +301,7 @@
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 var gitment = new Gitment({
-  id: "Spark MLib 每日一算法 —— PCA",
+  id: "Spark MLib 每周一算法 —— OneHotEncoder",
   owner: 'ratlsun',
   repo: 'ratlsun.github.io',
   oauth: {

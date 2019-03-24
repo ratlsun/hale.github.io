@@ -9,13 +9,13 @@
   <title>Spark MLib 每周一算法 —— GBTs | Spark MLib wctkn</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="GBTs(Gradient-boosted trees)GBTs也是一种基于基础决策树(DecisionTree)的集成模型(Ensemble)，它通过迭代方式不断基于当前的决策树生成下一棵树，最终将这一系列决策树的结果组合产生最终的结果，从而进行分类或者回归。和RandomForests一样，集成模型的好处是可以非常好的避免过拟合(overfitting)问题，同时它也能使得一个性能比较差的弱决">
-<meta name="keywords" content="Spark,机器学习,算法,GBTs">
+<meta name="keywords" content="Spark,机器学习,算法,GBTs,梯度提升树">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spark MLib 每周一算法 —— GBTs">
 <meta property="og:url" content="http://ratlsun.github.io/2019/03/16/GBTs/index.html">
 <meta property="og:site_name" content="Spark MLib wctkn">
 <meta property="og:description" content="GBTs(Gradient-boosted trees)GBTs也是一种基于基础决策树(DecisionTree)的集成模型(Ensemble)，它通过迭代方式不断基于当前的决策树生成下一棵树，最终将这一系列决策树的结果组合产生最终的结果，从而进行分类或者回归。和RandomForests一样，集成模型的好处是可以非常好的避免过拟合(overfitting)问题，同时它也能使得一个性能比较差的弱决">
-<meta property="og:updated_time" content="2019-03-17T13:43:09.326Z">
+<meta property="og:updated_time" content="2019-03-23T12:47:03.344Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark MLib 每周一算法 —— GBTs">
 <meta name="twitter:description" content="GBTs(Gradient-boosted trees)GBTs也是一种基于基础决策树(DecisionTree)的集成模型(Ensemble)，它通过迭代方式不断基于当前的决策树生成下一棵树，最终将这一系列决策树的结果组合产生最终的结果，从而进行分类或者回归。和RandomForests一样，集成模型的好处是可以非常好的避免过拟合(overfitting)问题，同时它也能使得一个性能比较差的弱决">
@@ -207,6 +207,10 @@
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">GBTs</a>
         		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">梯度提升树</a>
+        		</li>
       		
 		</ul>
 	</div>
@@ -274,6 +278,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2019/03/23/OneHotEncoder/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Spark MLib 每周一算法 —— OneHotEncoder
+        
+      </div>
+    </a>
   
   
     <a href="/2019/03/10/RandomForests/" id="article-nav-older" class="article-nav-link-wrap">
@@ -441,10 +454,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">GBTs</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">CollaborativeFiltering</a>
               </li>
              
@@ -457,47 +466,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">GBTs</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">OneHotEncoder</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">独热编码</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">DecisionTree</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">决策树</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RandomForests</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">随机森林</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">LogisticRegression</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">逻辑回归</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">PCA</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">主成分分析</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">NaiveBayes</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">朴素贝叶斯</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">StringIndexer</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -513,11 +498,51 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">VectorAssembler</a>
+                <a href="javascript:void(0)" class="js-tag color4">LogisticRegression</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">逻辑回归</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">NaiveBayes</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">朴素贝叶斯</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">StringIndexer</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">RandomForests</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">随机森林</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">PCA</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">主成分分析</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">VectorIndexer</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">VectorAssembler</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">梯度提升树</a>
               </li>
             
             <div class="clearfix"></div>
