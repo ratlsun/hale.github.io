@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://ratlsun.github.io">
   <title>Spark MLib 每周一算法 —— OneHotEncoder | Spark MLib wctkn</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="OneHotEncoderOneHotEncoder是一个Estimator，用来将某个类别index属性(整数值)的值转化成向量值，该向量值的特点是每个分量不是0就是1，并且最多只有1个分量是1，这个分量是1即代表这条数据的这个特性取得特定的属性值，所以被称作One-Hot(独热)。这样的向量可以将离散分类数据变成可用于回归类算法的连续数据。">
+  <meta name="description" content="OneHotEncoderOneHotEncoder是一个Estimator，用来将某个类别index属性(整数值)的值转化成向量值，该向量值的特点是每个分量不是0就是1，并且最多只有1个分量是1，这个分量是1即代表这条数据的这个特性取得特定的属性值，所以被称作One-Hot(独热)。这样的向量可以将离散分类数据变成可用于回归类算法的连续数据，特征的index属性值通常可以由之前介绍的String">
 <meta name="keywords" content="Spark,机器学习,算法,OneHotEncoder,独热编码">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spark MLib 每周一算法 —— OneHotEncoder">
 <meta property="og:url" content="http://ratlsun.github.io/2019/03/23/OneHotEncoder/index.html">
 <meta property="og:site_name" content="Spark MLib wctkn">
-<meta property="og:description" content="OneHotEncoderOneHotEncoder是一个Estimator，用来将某个类别index属性(整数值)的值转化成向量值，该向量值的特点是每个分量不是0就是1，并且最多只有1个分量是1，这个分量是1即代表这条数据的这个特性取得特定的属性值，所以被称作One-Hot(独热)。这样的向量可以将离散分类数据变成可用于回归类算法的连续数据。">
-<meta property="og:updated_time" content="2019-03-24T02:07:44.380Z">
+<meta property="og:description" content="OneHotEncoderOneHotEncoder是一个Estimator，用来将某个类别index属性(整数值)的值转化成向量值，该向量值的特点是每个分量不是0就是1，并且最多只有1个分量是1，这个分量是1即代表这条数据的这个特性取得特定的属性值，所以被称作One-Hot(独热)。这样的向量可以将离散分类数据变成可用于回归类算法的连续数据，特征的index属性值通常可以由之前介绍的String">
+<meta property="og:updated_time" content="2019-04-12T07:32:42.058Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark MLib 每周一算法 —— OneHotEncoder">
-<meta name="twitter:description" content="OneHotEncoderOneHotEncoder是一个Estimator，用来将某个类别index属性(整数值)的值转化成向量值，该向量值的特点是每个分量不是0就是1，并且最多只有1个分量是1，这个分量是1即代表这条数据的这个特性取得特定的属性值，所以被称作One-Hot(独热)。这样的向量可以将离散分类数据变成可用于回归类算法的连续数据。">
+<meta name="twitter:description" content="OneHotEncoderOneHotEncoder是一个Estimator，用来将某个类别index属性(整数值)的值转化成向量值，该向量值的特点是每个分量不是0就是1，并且最多只有1个分量是1，这个分量是1即代表这条数据的这个特性取得特定的属性值，所以被称作One-Hot(独热)。这样的向量可以将离散分类数据变成可用于回归类算法的连续数据，特征的index属性值通常可以由之前介绍的String">
   
     <link rel="alternative" href="/atom.xml" title="Spark MLib wctkn" type="application/atom+xml">
   
@@ -148,7 +148,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="OneHotEncoder"><a href="#OneHotEncoder" class="headerlink" title="OneHotEncoder"></a>OneHotEncoder</h3><p>OneHotEncoder是一个Estimator，用来将某个类别index属性(整数值)的值转化成向量值，该向量值的特点是每个分量不是0就是1，并且最多只有1个分量是1，这个分量是1即代表这条数据的这个特性取得特定的属性值，所以被称作One-Hot(独热)。这样的向量可以将离散分类数据变成可用于回归类算法的连续数据。<br><a id="more"></a></p>
+        <h3 id="OneHotEncoder"><a href="#OneHotEncoder" class="headerlink" title="OneHotEncoder"></a>OneHotEncoder</h3><p>OneHotEncoder是一个Estimator，用来将某个类别index属性(整数值)的值转化成向量值，该向量值的特点是每个分量不是0就是1，并且最多只有1个分量是1，这个分量是1即代表这条数据的这个特性取得特定的属性值，所以被称作One-Hot(独热)。这样的向量可以将离散分类数据变成可用于回归类算法的连续数据，特征的index属性值通常可以由之前介绍的<a href="/2018/02/04/StringIndexer">StringIndexer</a>从文本label值来生成。该算法通常被用在自然语言处理(nlp)任务中，对词典(vocabulary)数据中的每个单词(word)进行编码。<br><a id="more"></a></p>
 <h3 id="编码规则"><a href="#编码规则" class="headerlink" title="编码规则"></a>编码规则</h3><p>Spark的OneHotEncoder的有两种编码规则如下，包含原点(0向量)和不包含原点：</p>
 <ol>
 <li>向量长度为训练数据中最大的index值，该最大index值对应的编码为全0向量，其他index值对应的编码为——在index对应的分量上值为1，其他分量值为0的向量。</li>

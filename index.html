@@ -145,7 +145,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="OneHotEncoder"><a href="#OneHotEncoder" class="headerlink" title="OneHotEncoder"></a>OneHotEncoder</h3><p>OneHotEncoder是一个Estimator，用来将某个类别index属性(整数值)的值转化成向量值，该向量值的特点是每个分量不是0就是1，并且最多只有1个分量是1，这个分量是1即代表这条数据的这个特性取得特定的属性值，所以被称作One-Hot(独热)。这样的向量可以将离散分类数据变成可用于回归类算法的连续数据。<br>
+        <h3 id="OneHotEncoder"><a href="#OneHotEncoder" class="headerlink" title="OneHotEncoder"></a>OneHotEncoder</h3><p>OneHotEncoder是一个Estimator，用来将某个类别index属性(整数值)的值转化成向量值，该向量值的特点是每个分量不是0就是1，并且最多只有1个分量是1，这个分量是1即代表这条数据的这个特性取得特定的属性值，所以被称作One-Hot(独热)。这样的向量可以将离散分类数据变成可用于回归类算法的连续数据，特征的index属性值通常可以由之前介绍的<a href="/2018/02/04/StringIndexer">StringIndexer</a>从文本label值来生成。该算法通常被用在自然语言处理(nlp)任务中，对词典(vocabulary)数据中的每个单词(word)进行编码。<br>
         
           <a class="article-more-a" href="/2019/03/23/OneHotEncoder/#more">more >></a>
         
