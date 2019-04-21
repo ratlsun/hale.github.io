@@ -138,6 +138,94 @@ ga('send', 'pageview');
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-VectorIndexer" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/02/14/VectorIndexer/">Spark MLib 每日一算法 —— VectorIndexer</a>
+    </h1>
+  
+
+        
+        <a href="/2018/02/14/VectorIndexer/" class="archive-article-date">
+  	<time datetime="2018-02-14T11:44:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="VectorIndexer"><a href="#VectorIndexer" class="headerlink" title="VectorIndexer"></a>VectorIndexer</h3><p>VectorIndexer是一个Estimator，用来将某个一组数字类型的属性值转化成数字编码index，以便后续其他适用于数字编码的算法使用。多个属性值被组合成一个Vector字段作为输入。<br>在fit期间如果某一个属性中出现的属性值&lt;=最大分组阈值，则该属性会被认为是离散属性(categorical feature)并进行编码，编码规则是对该属性每个出现的离散数值给出从<span style="color:blue">0～离散数值数量-1</span>的数字，属性数值越小，给出的编码数字就越小(和<em>StringIndexer</em>算法类似，但编码规则不同)；属性值&gt;分组阈值的属性被认为是连续属性(continuous feature)，输出中将保留原数值。<br>在transform阶段，VectorIndexer并不像StringIndexer那样具备处理fit时没有碰到过的离散属性值(连续值不影响)或者Null值的能力，如果出现就会抛出 <code>java.util.NoSuchElementException: key not found: xx</code>异常，后续spark应该会加上处理这些未知值的选项。</p>
+        
+          <a class="article-more-a" href="/2018/02/14/VectorIndexer/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spark</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">VectorIndexer</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/02/14/VectorIndexer/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-PCA" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -525,6 +613,14 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">LogisticRegression</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">逻辑回归</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">CollaborativeFiltering</a>
               </li>
              
@@ -537,11 +633,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">DecisionTree</a>
+                <a href="javascript:void(0)" class="js-tag color5">GBTs</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">决策树</a>
+                <a href="javascript:void(0)" class="js-tag color1">梯度提升树</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -557,19 +653,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">GBTs</a>
+                <a href="javascript:void(0)" class="js-tag color3">DecisionTree</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">梯度提升树</a>
+                <a href="javascript:void(0)" class="js-tag color4">决策树</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">LogisticRegression</a>
+                <a href="javascript:void(0)" class="js-tag color4">OneHotEncoder</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">逻辑回归</a>
+                <a href="javascript:void(0)" class="js-tag color5">独热编码</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -578,6 +674,14 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">朴素贝叶斯</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">PCA</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">主成分分析</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -593,11 +697,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">OneHotEncoder</a>
+                <a href="javascript:void(0)" class="js-tag color4">Word2Vec</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">独热编码</a>
+                <a href="javascript:void(0)" class="js-tag color5">Embedding</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Skip-Gram</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -614,14 +722,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">随机森林</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">PCA</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">主成分分析</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://ratlsun.github.io">
-  <title>Tag: 决策树 | Spark MLib wctkn</title>
+  <title>Spark MLib 每周一算法 —— Word2Vec | Spark MLib wctkn</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Spark MLib wctkn">
-<meta property="og:url" content="http://ratlsun.github.io/tags/决策树/index.html">
+  <meta name="description" content="Word2VecWord2Vec是一个Estimator，顾名思义就是将给定的词(word)的序列转化成一个指定长度的向量值(vector)。Word2Vec的训练集就是一组语料，可以是任意文章的集合，通常将每个句子，即词的序列，作为一条输入项。Word2Vec的fit过程负责计算出这些语料中出现的词(word)的对应向量(vector)，从而生成Word2VecModel对象。transform">
+<meta name="keywords" content="Spark,机器学习,算法,nlp,自然语言处理,Word2Vec,Embedding,Skip-Gram">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spark MLib 每周一算法 —— Word2Vec">
+<meta property="og:url" content="http://ratlsun.github.io/2019/04/20/Word2Vec/index.html">
 <meta property="og:site_name" content="Spark MLib wctkn">
+<meta property="og:description" content="Word2VecWord2Vec是一个Estimator，顾名思义就是将给定的词(word)的序列转化成一个指定长度的向量值(vector)。Word2Vec的训练集就是一组语料，可以是任意文章的集合，通常将每个句子，即词的序列，作为一条输入项。Word2Vec的fit过程负责计算出这些语料中出现的词(word)的对应向量(vector)，从而生成Word2VecModel对象。transform">
+<meta property="og:updated_time" content="2019-04-21T17:33:12.161Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spark MLib wctkn">
+<meta name="twitter:title" content="Spark MLib 每周一算法 —— Word2Vec">
+<meta name="twitter:description" content="Word2VecWord2Vec是一个Estimator，顾名思义就是将给定的词(word)的序列转化成一个指定长度的向量值(vector)。Word2Vec的训练集就是一组语料，可以是任意文章的集合，通常将每个句子，即词的序列，作为一条输入项。Word2Vec的fit过程负责计算出这些语料中出现的词(word)的对应向量(vector)，从而生成Word2VecModel对象。transform">
   
     <link rel="alternative" href="/atom.xml" title="Spark MLib wctkn" type="application/atom+xml">
   
@@ -136,36 +141,54 @@ ga('send', 'pageview');
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Word2Vec" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/10/04/DecisionTree/" class="archive-article-date">
-  	<time datetime="2018-10-04T06:49:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-04</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/10/04/DecisionTree/">Spark MLib 每季一算法 —— DecisionTree</a>
+    <h1 class="article-title" itemprop="name">
+      Spark MLib 每周一算法 —— Word2Vec
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/04/20/Word2Vec/" class="archive-article-date">
+  	<time datetime="2019-04-20T07:17:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Word2Vec"><a href="#Word2Vec" class="headerlink" title="Word2Vec"></a>Word2Vec</h3><p>Word2Vec是一个Estimator，顾名思义就是将给定的词(word)的序列转化成一个指定长度的向量值(vector)。Word2Vec的训练集就是一组语料，可以是任意文章的集合，通常将每个句子，即词的序列，作为一条输入项。Word2Vec的fit过程负责计算出这些语料中出现的词(word)的对应向量(vector)，从而生成Word2VecModel对象。transform过程就是根据每个单词的向量值求平均算出整个句子的向量值，从而给出最终结果。<br>实际在自然语言处理(nlp)的任务中，我们其实更关心的就是每个词的向量表达。我们可以把这个计算词向量表达的过程，即Word2Vec的整个fit过程，想象成——把一个词作为一个给定n维空间的点镶嵌到n维空间当中去，所以这个过程又被称为词嵌入(Embedding)。Embedding也可以认为是机器对人类语料进行学习的结果，机器从语料本身(不需要任何额外标注信息)得到了每个词的特征；获取了一种在机器世界表达词的方式，这种对词的表达方式可以用到后续任何语言学习任务当中去。<br><a id="more"></a></p>
+<h3 id="Embedding算法过程"><a href="#Embedding算法过程" class="headerlink" title="Embedding算法过程"></a>Embedding算法过程</h3><p><strong>Skip-Gram</strong><br>Spark的Embedding采用的是Skip-Gram方法，即通过语料中给定的词，去预测该词周边出现的词。这个预测过程可以通过构建一个单隐层的神经网络来进行训练，输入和输出都是整个输入语料中符合条件的单词(一般使用<a href="/2019/03/23/OneHotEncoder">OneHotEncoder</a>编码表示)，隐层的神经元个数就是词向量空间的维度数。最终需要的就是输入层到隐层之间的权重矩阵，该矩阵的每一个横向量就是对应词的词向量。</p>
+<p><strong>Hierarchical softmax</strong><br>因为最终只需要输入层到隐层之间的权重矩阵，所以就不需要训练完整的训练层到输出层的完整权重了，Spark采用<em>hierarchical softmax</em>的方式来简化训练层到输出层的训练，该方法不用计算出某个输入下所有输出层的神经元的<em>softmax</em>概率值，而是构建一个Huffman编码的二叉树结构，叶子结点为所有输出层神经元，即词典中所有的词。这样只需要计算$\log_{2}W$个结点的二分类概率值，然后找到代表某个预测词的叶子结点的路径就可，比计算所有词的数量W个结点的全部<em>softmax</em>概率值要高效很多，词量越大节省的效率越大。</p>
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><ul>
+<li><strong>inputCol:</strong> 需要进行转化词序列的属性名称，该属性列用一个数组来表达序列。 (没有默认值)</li>
+<li><strong>outputCol:</strong> 转化后的结果向量属性名称。 (默认值: w2v_######__output)</li>
+<li><strong>maxSentenceLength:</strong> 表示输入的句子(词序列)中最多包含多少个词，超过指定长度的序列将被截断成多个序列作为输入。(正整数，默认值: 1000)</li>
+<li><strong>minCount:</strong> 表示输入词在输入语料中至少出现多少次，才会进行向量转化，少于该出现次数的次将会在输入值中之间丢弃。 (&gt;=0整数，默认值: 5)</li>
+<li><strong>vectorSize:</strong> 表示词向量空间的维度。 (正整数，默认值: 100)</li>
+<li><strong>windowSize:</strong> 表示Skip-Gram方法中的词窗口内包含多个词，也就是说有多少个词会作为给定词的周边结果。比如窗口数为2，那就是前后各2个词作为给定词的预测结果。(正整数，默认值: 5)</li>
+<li><strong>numPartitions:</strong> Spark的实现参数，在fit过程中将输入的句子(词序列)分成指定的n个protition处理，减少同一时间的内存占用，默认不分区。 (正整数，默认值: 1)</li>
+</ul>
+<h3 id="model对象的方法"><a href="#model对象的方法" class="headerlink" title="model对象的方法"></a>model对象的方法</h3><ul>
+<li><strong>getVectors():</strong> 获取所有单词对应的词向量，以DataFrame类型数据返回，包含<code>word</code>和<code>vector</code>两列。</li>
+<li><strong>findSynonyms(word, num):</strong> 找出给定词的同义词，以DataFrame类型数据返回指定的最接近的num个同义词，包含<code>word</code>和<code>similarity</code>两列，其中<code>word</code>为近义词，<code>similarity</code>为近似程度，Spark采用给定词向量和所有词向量的夹角余弦相似度作为近似程度值。给定的词必须在模型对象的词向量列表中存在，不然会得到<code>java.lang.IllegalStateException: xxx not in vocabulary</code>异常</li>
+<li><strong>findSynonymsArray(word, num):</strong> 和上面的<strong>findSynonyms(word, num)</strong>一样，找出给定词的同义词，但以Array[(String, Double)]类型的数据返回，每一条记录里包含了近义词和近似程度两个值。</li>
+<li><strong>findSynonyms(vector, num):</strong> 找出给定向量的同义词，返回结果和上面的<strong>findSynonyms(word, num)</strong>一致，给定的向量可以是模型对象的词向量列表中不存在的任意符合维度的向量。</li>
+<li><strong>findSynonymsArray(vector, num):</strong> 和上面的<strong>findSynonyms(vector, num)</strong>一样，找出给定词的同义词，返回值和<strong>findSynonymsArray(word, num)</strong>一样是一个Array[(String, Double)]数组。</li>
+</ul>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> wordDataFrame = spark.createDataFrame(<span class="type">Seq</span>(</span><br><span class="line">      (<span class="number">0</span>, <span class="type">Array</span>(<span class="string">"Hi"</span>, <span class="string">"I"</span>, <span class="string">"heard"</span>, <span class="string">"about"</span>, <span class="string">"Spark"</span>)),</span><br><span class="line">      (<span class="number">1</span>, <span class="type">Array</span>(<span class="string">"I"</span>, <span class="string">"wish"</span>, <span class="string">"Java"</span>, <span class="string">"could"</span>, <span class="string">"use"</span>, <span class="string">"case"</span>, <span class="string">"classes"</span>)),</span><br><span class="line">      (<span class="number">2</span>, <span class="type">Array</span>(<span class="string">"Logistic"</span>, <span class="string">"regression"</span>, <span class="string">"models"</span>, <span class="string">"are"</span>, <span class="string">"neat"</span>))</span><br><span class="line">    )).toDF(<span class="string">"id"</span>, <span class="string">"words"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> word2Vec = <span class="keyword">new</span> <span class="type">Word2Vec</span>()</span><br><span class="line">      .setInputCol(<span class="string">"words"</span>)</span><br><span class="line">      .setOutputCol(<span class="string">"result"</span>)</span><br><span class="line">      .setVectorSize(<span class="number">3</span>)</span><br><span class="line">      .setMinCount(<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">val</span> model = word2Vec.fit(wordDataFrame)</span><br><span class="line"></span><br><span class="line">    model.getVectors.show(<span class="literal">false</span>)</span><br><span class="line">    <span class="comment">//    +----------+------------------------------------------------------------------+</span></span><br><span class="line">    <span class="comment">//    |word      |vector                                                            |</span></span><br><span class="line">    <span class="comment">//    +----------+------------------------------------------------------------------+</span></span><br><span class="line">    <span class="comment">//    |heard     |[-0.053989291191101074,0.14687322080135345,-0.0022512583527714014]|</span></span><br><span class="line">    <span class="comment">//    |are       |[-0.16293057799339294,-0.14514029026031494,0.1139335036277771]    |</span></span><br><span class="line">    <span class="comment">//    |neat      |[-0.0406828410923481,0.028049567714333534,-0.16289857029914856]   |</span></span><br><span class="line">    <span class="comment">//    |classes   |[-0.1490514725446701,-0.04974571615457535,0.03320947289466858]    |</span></span><br><span class="line">    <span class="comment">//    |I         |[-0.019095497205853462,-0.131216898560524,0.14303986728191376]    |</span></span><br><span class="line">    <span class="comment">//    |regression|[0.16541987657546997,0.06469681113958359,0.09233078360557556]     |</span></span><br><span class="line">    <span class="comment">//    |Logistic  |[0.036407098174095154,0.05800342187285423,-0.021965932101011276]  |</span></span><br><span class="line">    <span class="comment">//    |Spark     |[-0.1267719864845276,0.09859133511781693,-0.10378564894199371]    |</span></span><br><span class="line">    <span class="comment">//    |could     |[0.15352481603622437,0.06008218228816986,0.07726015895605087]     |</span></span><br><span class="line">    <span class="comment">//    |use       |[0.08318991959095001,0.002120430115610361,-0.07926633954048157]   |</span></span><br><span class="line">    <span class="comment">//    |Hi        |[-0.05663909390568733,0.009638422168791294,-0.033786069601774216] |</span></span><br><span class="line">    <span class="comment">//    |models    |[0.11912573128938675,0.1333899050951004,0.1441687047481537]       |</span></span><br><span class="line">    <span class="comment">//    |case      |[0.14080166816711426,0.08094961196184158,0.1596144139766693]      |</span></span><br><span class="line">    <span class="comment">//    |about     |[0.11579915136098862,0.10381520539522171,-0.06980287283658981]    |</span></span><br><span class="line">    <span class="comment">//    |Java      |[0.12235434353351593,-0.03189820423722267,-0.1423865109682083]    |</span></span><br><span class="line">    <span class="comment">//    |wish      |[0.14934538304805756,-0.11263544857501984,-0.03990427032113075]   |</span></span><br><span class="line">    <span class="comment">//    +----------+------------------------------------------------------------------+</span></span><br><span class="line"></span><br><span class="line">    model.findSynonyms(<span class="string">"I"</span>, <span class="number">2</span>).show(<span class="literal">false</span>)</span><br><span class="line">    <span class="comment">//    +-------+-------------------+</span></span><br><span class="line">    <span class="comment">//    |word   |similarity         |</span></span><br><span class="line">    <span class="comment">//    +-------+-------------------+</span></span><br><span class="line">    <span class="comment">//    |are    |0.800910234451294  |</span></span><br><span class="line">    <span class="comment">//    |classes|0.45088085532188416|</span></span><br><span class="line">    <span class="comment">//    +-------+-------------------+</span></span><br><span class="line"></span><br><span class="line">    println(<span class="string">"Synonyms Array: "</span> +</span><br><span class="line">      model.findSynonymsArray(<span class="type">Vectors</span>.dense(<span class="number">0.1</span>, <span class="number">0.1</span>, <span class="number">0.1</span>), <span class="number">2</span>).mkString(<span class="string">","</span>))</span><br><span class="line">    <span class="comment">//  [(models,0.9970051050186157), (case,0.9669119715690613)]</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> testDataFrame = spark.createDataFrame(<span class="type">Seq</span>(</span><br><span class="line">      (<span class="number">0</span>, <span class="type">Array</span>(<span class="string">"Hello"</span>, <span class="string">"I"</span>, <span class="string">"heard"</span>, <span class="string">"about"</span>, <span class="string">"Spark"</span>)),</span><br><span class="line">      (<span class="number">1</span>, <span class="type">Array</span>(<span class="string">"You"</span>, <span class="string">"know"</span>, <span class="string">"nothing"</span>)),</span><br><span class="line">      (<span class="number">2</span>, <span class="type">Array</span>(<span class="string">"You"</span>, <span class="string">"know"</span>, <span class="string">"Java"</span>))</span><br><span class="line">    )).toDF(<span class="string">"id"</span>, <span class="string">"words"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> result = model.transform(testDataFrame)</span><br><span class="line">    result.show(<span class="literal">false</span>)</span><br><span class="line"><span class="comment">//    +---+-------------------------------+----------------------------------------------------------------+</span></span><br><span class="line"><span class="comment">//    |id |words                          |result                                                          |</span></span><br><span class="line"><span class="comment">//    +---+-------------------------------+----------------------------------------------------------------+</span></span><br><span class="line"><span class="comment">//    |0  |[Hello, I, heard, about, Spark]|[-0.0168115247040987,0.04361257255077362,-0.0065599825698882345]|</span></span><br><span class="line"><span class="comment">//    |1  |[You, know, nothing]           |[0.0,0.0,0.0]                                                   |</span></span><br><span class="line"><span class="comment">//    |2  |[You, know, Java]              |[0.04078478117783864,-0.01063273474574089,-0.0474621703227361]  |</span></span><br><span class="line"><span class="comment">//    +---+-------------------------------+----------------------------------------------------------------+</span></span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -183,29 +206,144 @@ ga('send', 'pageview');
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">DecisionTree</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">nlp</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">决策树</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">自然语言处理</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Word2Vec</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Embedding</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Skip-Gram</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://ratlsun.github.io/2019/04/20/Word2Vec/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2019/04/13/NGram/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Spark MLib 每月一算法 —— NGram</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
+  <div id="gitment-ctn"></div> 
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: "Spark MLib 每周一算法 —— Word2Vec",
+  owner: 'ratlsun',
+  repo: 'ratlsun.github.io',
+  oauth: {
+    client_id: 'd32a1212cd677fda1ff2',
+    client_secret: '87f127a477d5cd25b94918483dce971882e799ea',
+  },
+})
+gitment.render('gitment-ctn')
+</script>
+  
 
 
           </div>
@@ -228,9 +366,9 @@ ga('send', 'pageview');
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
