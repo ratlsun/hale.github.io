@@ -15,7 +15,7 @@
 <meta property="og:url" content="http://ratlsun.github.io/2019/04/20/Word2Vec/index.html">
 <meta property="og:site_name" content="Spark MLib wctkn">
 <meta property="og:description" content="Word2VecWord2Vec是一个Estimator，顾名思义就是将给定的词(word)的序列转化成一个指定长度的向量值(vector)。Word2Vec的训练集就是一组语料，可以是任意文章的集合，通常将每个句子，即词的序列，作为一条输入项。Word2Vec的fit过程负责计算出这些语料中出现的词(word)的对应向量(vector)，从而生成Word2VecModel对象。transform">
-<meta property="og:updated_time" content="2019-04-21T17:33:12.161Z">
+<meta property="og:updated_time" content="2019-05-10T15:56:22.619Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark MLib 每周一算法 —— Word2Vec">
 <meta name="twitter:description" content="Word2VecWord2Vec是一个Estimator，顾名思义就是将给定的词(word)的序列转化成一个指定长度的向量值(vector)。Word2Vec的训练集就是一组语料，可以是任意文章的集合，通常将每个句子，即词的序列，作为一条输入项。Word2Vec的fit过程负责计算出这些语料中出现的词(word)的对应向量(vector)，从而生成Word2VecModel对象。transform">
@@ -163,12 +163,12 @@ ga('send', 'pageview');
       
         <h3 id="Word2Vec"><a href="#Word2Vec" class="headerlink" title="Word2Vec"></a>Word2Vec</h3><p>Word2Vec是一个Estimator，顾名思义就是将给定的词(word)的序列转化成一个指定长度的向量值(vector)。Word2Vec的训练集就是一组语料，可以是任意文章的集合，通常将每个句子，即词的序列，作为一条输入项。Word2Vec的fit过程负责计算出这些语料中出现的词(word)的对应向量(vector)，从而生成Word2VecModel对象。transform过程就是根据每个单词的向量值求平均算出整个句子的向量值，从而给出最终结果。<br>实际在自然语言处理(nlp)的任务中，我们其实更关心的就是每个词的向量表达。我们可以把这个计算词向量表达的过程，即Word2Vec的整个fit过程，想象成——把一个词作为一个给定n维空间的点镶嵌到n维空间当中去，所以这个过程又被称为词嵌入(Embedding)。Embedding也可以认为是机器对人类语料进行学习的结果，机器从语料本身(不需要任何额外标注信息)得到了每个词的特征；获取了一种在机器世界表达词的方式，这种对词的表达方式可以用到后续任何语言学习任务当中去。<br><a id="more"></a></p>
 <h3 id="Embedding算法过程"><a href="#Embedding算法过程" class="headerlink" title="Embedding算法过程"></a>Embedding算法过程</h3><p><strong>Skip-Gram</strong><br>Spark的Embedding采用的是Skip-Gram方法，即通过语料中给定的词，去预测该词周边出现的词。这个预测过程可以通过构建一个单隐层的神经网络来进行训练，输入和输出都是整个输入语料中符合条件的单词(一般使用<a href="/2019/03/23/OneHotEncoder">OneHotEncoder</a>编码表示)，隐层的神经元个数就是词向量空间的维度数。最终需要的就是输入层到隐层之间的权重矩阵，该矩阵的每一个横向量就是对应词的词向量。</p>
-<p><strong>Hierarchical softmax</strong><br>因为最终只需要输入层到隐层之间的权重矩阵，所以就不需要训练完整的训练层到输出层的完整权重了，Spark采用<em>hierarchical softmax</em>的方式来简化训练层到输出层的训练，该方法不用计算出某个输入下所有输出层的神经元的<em>softmax</em>概率值，而是构建一个Huffman编码的二叉树结构，叶子结点为所有输出层神经元，即词典中所有的词。这样只需要计算$\log_{2}W$个结点的二分类概率值，然后找到代表某个预测词的叶子结点的路径就可，比计算所有词的数量W个结点的全部<em>softmax</em>概率值要高效很多，词量越大节省的效率越大。</p>
+<p><strong>Hierarchical softmax</strong><br>因为最终只需要输入层到隐层之间的权重矩阵，所以就不需要训练完整的隐层到输出层的完整权重了，Spark采用<em>hierarchical softmax</em>的方式来简化隐层到输出层的训练，该方法不用计算出某个输入下所有输出层的神经元的<em>softmax</em>概率值，而是构建一个以词的出现频率为依据的二叉树结构，词频约高的结点越靠近二叉树的根，叶子结点为所有输出层神经元，即词典中所有的词。这样只需要计算$\log_{2}W$个结点的二分类概率值，然后找到代表某个预测词的叶子结点的路径就可，比计算所有词的数量W个结点的全部<em>softmax</em>概率值要高效很多，词量越大节省的效率越大。</p>
 <h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><ul>
 <li><strong>inputCol:</strong> 需要进行转化词序列的属性名称，该属性列用一个数组来表达序列。 (没有默认值)</li>
 <li><strong>outputCol:</strong> 转化后的结果向量属性名称。 (默认值: w2v_######__output)</li>
 <li><strong>maxSentenceLength:</strong> 表示输入的句子(词序列)中最多包含多少个词，超过指定长度的序列将被截断成多个序列作为输入。(正整数，默认值: 1000)</li>
-<li><strong>minCount:</strong> 表示输入词在输入语料中至少出现多少次，才会进行向量转化，少于该出现次数的次将会在输入值中之间丢弃。 (&gt;=0整数，默认值: 5)</li>
+<li><strong>minCount:</strong> 表示输入词在输入语料中至少出现多少次，才会进行向量转化，少于该出现次数的次将会在输入值中直接丢弃。 (&gt;=0整数，默认值: 5)</li>
 <li><strong>vectorSize:</strong> 表示词向量空间的维度。 (正整数，默认值: 100)</li>
 <li><strong>windowSize:</strong> 表示Skip-Gram方法中的词窗口内包含多个词，也就是说有多少个词会作为给定词的周边结果。比如窗口数为2，那就是前后各2个词作为给定词的预测结果。(正整数，默认值: 5)</li>
 <li><strong>numPartitions:</strong> Spark的实现参数，在fit过程中将输入的句子(词序列)分成指定的n个protition处理，减少同一时间的内存占用，默认不分区。 (正整数，默认值: 1)</li>
